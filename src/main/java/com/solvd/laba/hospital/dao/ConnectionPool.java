@@ -1,5 +1,6 @@
 package com.solvd.laba.hospital.dao;
 
+import com.solvd.laba.hospital.model.exceptions.CreateConnectionException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,14 +20,14 @@ public class ConnectionPool {
             try {
                 connections.add(DriverManager.getConnection(Config.URL, Config.USER, Config.PASSWORD));
             } catch (SQLException e) {
-                ;
+                throw new CreateConnectionException(e);
             }
         }
     }
 
     public static synchronized ConnectionPool getInstance() {
         if (instance == null) {
-            instance = new ConnectionPool(5); //todo property
+            instance = new ConnectionPool(Config.POOL_SIZE);
         }
         return instance;
     }
