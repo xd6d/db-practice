@@ -1,7 +1,7 @@
-package com.solvd.laba.model.appointment;
+package com.solvd.laba.hospital.model.appointment;
 
-import com.solvd.laba.model.person.EmployeePerson;
-import com.solvd.laba.model.person.PatientPerson;
+import com.solvd.laba.hospital.model.person.EmployeePerson;
+import com.solvd.laba.hospital.model.person.PatientPerson;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

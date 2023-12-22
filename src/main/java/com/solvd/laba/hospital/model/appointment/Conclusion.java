@@ -1,4 +1,4 @@
-package com.solvd.laba.model.appointment;
+package com.solvd.laba.hospital.model.appointment;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

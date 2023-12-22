@@ -1,6 +1,6 @@
-package com.solvd.laba.model.info;
+package com.solvd.laba.hospital.model.info;
 
-import com.solvd.laba.model.person.EmployeePerson;
+import com.solvd.laba.hospital.model.person.EmployeePerson;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

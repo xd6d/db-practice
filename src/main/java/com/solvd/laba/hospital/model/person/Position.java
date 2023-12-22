@@ -1,4 +1,4 @@
-package com.solvd.laba.model.person;
+package com.solvd.laba.hospital.model.person;
 
 import lombok.Getter;
 
