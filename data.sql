@@ -41,14 +41,14 @@ INSERT INTO recipe_medicines(recipe_id, medicine_id) VALUES
     (2, 2),
     (2, 1);
 
-INSERT INTO conclusions(complaint, medical_history, observation, diagnosis, recommendations, appointment_id, recipe_id) VALUES
-    ('Bad condition', 'None', 'Temperature 38.8, low blood pressure', 'Fever', 'Aspirin 2 times a day', 1, 1),
-    (null, null, null, null, null, 1, 1),
-    ('Strong headache', 'Paracetamol have not helped', 'No visible observations', null, '1. Do head x-ray. 2. Try Ascophen after breakfast', 2, 2);
+INSERT INTO conclusions(complaint, medical_history, observation, diagnosis, recommendations, recipe_id) VALUES
+    ('Bad condition', 'None', 'Temperature 38.8, low blood pressure', 'Fever', 'Aspirin 2 times a day', 1),
+    (null, null, null, null, null, 1),
+    ('Strong headache', 'Paracetamol have not helped', 'No visible observations', null, '1. Do head x-ray. 2. Try Ascophen after breakfast', 2);
 
 UPDATE medicines SET is_recepted = false where id = 2;
 
-UPDATE conclusions SET diagnosis = 'Migraine' WHERE appointment_id = 2;
+UPDATE conclusions SET diagnosis = 'Migraine' WHERE id = 2;
 
 UPDATE patients SET email = 'mmaarriiaa@mail.com', phone_number = '+12312312' WHERE id = 2;
 
@@ -94,7 +94,7 @@ SELECT pat.name, pat.surname, e.name AS doc_name, e.surname AS doc_surname, app.
     LEFT JOIN vaccinations v ON v.patient_id = pat.id
     LEFT JOIN hospitalizations h ON pat.id = h.patient_id
     LEFT JOIN appointments app ON pat.id = app.patient_id and e.id = app.doctor_id
-    LEFT JOIN conclusions c ON c.appointment_id = app.id
+    LEFT JOIN conclusions c ON c.id = app.conclusion_id
     LEFT JOIN recipes r ON r.id = c.recipe_id
     LEFT JOIN recipe_medicines r_m ON r_m.recipe_id = r.id
     LEFT JOIN medicines m ON m.id = r_m.medicine_id
@@ -111,7 +111,7 @@ SELECT e.name as doc_name, e.surname as doc_surname, a.time as time, p.name as p
 
 SELECT p.name as pat_name, p.surname as pat_surname, c.recommendations FROM patients p
     INNER JOIN appointments app ON p.id = app.patient_id
-    INNER JOIN conclusions c ON c.appointment_id = app.id;
+    INNER JOIN conclusions c ON c.id = app.conclusion_id;
 
 SELECT hosp.place, hosp.description, hosp.patients_condition, p.name, p.surname FROM patients p
     RIGHT JOIN hospitalizations hosp ON hosp.patient_id = p.id;
@@ -137,7 +137,7 @@ SELECT AVG(price) as max_price FROM medicines;
 
 SELECT p.name, p.surname, SUM(m.price) as med_total FROM patients p
     INNER JOIN appointments app ON p.id = app.patient_id
-    LEFT JOIN conclusions c ON c.appointment_id = app.id
+    LEFT JOIN conclusions c ON c.id = app.conclusion_id
     INNER JOIN recipes r ON c.recipe_id = r.id
     LEFT JOIN recipe_medicines r_m ON r.id = r_m.recipe_id
     INNER JOIN medicines m ON r_m.medicine_id = m.id
@@ -171,7 +171,7 @@ SELECT e.name, e.surname, COUNT(d.id) AS decls_amount FROM declarations d
 
 SELECT p.name, p.surname, SUM(m.price) as med_total FROM patients p
     INNER JOIN appointments app ON p.id = app.patient_id
-    LEFT JOIN conclusions c ON c.appointment_id = app.id
+    LEFT JOIN conclusions c ON c.id = app.conclusion_id
     INNER JOIN recipes r ON c.recipe_id = r.id
     LEFT JOIN recipe_medicines r_m ON r.id = r_m.recipe_id
     INNER JOIN medicines m ON r_m.medicine_id = m.id
