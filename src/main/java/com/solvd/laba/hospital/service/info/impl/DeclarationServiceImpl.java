@@ -1,10 +1,10 @@
-package com.solvd.laba.hospital.service.impl;
+package com.solvd.laba.hospital.service.info.impl;
 
-import com.solvd.laba.hospital.dao.repository.DeclarationRepository;
-import com.solvd.laba.hospital.dao.repository.impl.DeclarationRepositoryImpl;
+import com.solvd.laba.hospital.dao.repository.info.DeclarationRepository;
+import com.solvd.laba.hospital.dao.repository.info.impl.DeclarationRepositoryImpl;
 import com.solvd.laba.hospital.model.exceptions.IncorrectDeclarationException;
 import com.solvd.laba.hospital.model.info.Declaration;
-import com.solvd.laba.hospital.service.DeclarationService;
+import com.solvd.laba.hospital.service.info.DeclarationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -1,17 +1,25 @@
-package com.solvd.laba.hospital.service.impl;
+package com.solvd.laba.hospital.service.person.impl;
 
-import com.solvd.laba.hospital.dao.repository.PatientRepository;
-import com.solvd.laba.hospital.dao.repository.impl.PatientRepositoryImpl;
+import com.solvd.laba.hospital.dao.repository.person.PatientRepository;
+import com.solvd.laba.hospital.dao.repository.person.impl.PatientRepositoryImpl;
 import com.solvd.laba.hospital.model.exceptions.IncorrectPersonException;
 import com.solvd.laba.hospital.model.person.PatientPerson;
-import com.solvd.laba.hospital.service.*;
+import com.solvd.laba.hospital.service.info.AnalysisService;
+import com.solvd.laba.hospital.service.info.DeclarationService;
+import com.solvd.laba.hospital.service.info.HospitalizationService;
+import com.solvd.laba.hospital.service.info.VaccinationService;
+import com.solvd.laba.hospital.service.info.impl.AnalysisServiceImpl;
+import com.solvd.laba.hospital.service.info.impl.DeclarationServiceImpl;
+import com.solvd.laba.hospital.service.info.impl.HospitalizationServiceImpl;
+import com.solvd.laba.hospital.service.info.impl.VaccinationServiceImpl;
+import com.solvd.laba.hospital.service.person.PatientService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
 
-public class PatientServiceImpl implements PatientService {
+public class PatientServiceImpl extends PersonService implements PatientService {
     private static final Logger LOGGER = LogManager.getLogger(PatientServiceImpl.class);
 
     private final PatientRepository patientRepository;
@@ -31,7 +39,8 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public PatientPerson add(PatientPerson patient) {
         try {
-            validate(patient);
+            validateForNull(patient);
+            validateUniqueness(patient, getAll(), false);
             patientRepository.create(patient);
         } catch (IncorrectPersonException e) {
             LOGGER.error(e);
@@ -63,7 +72,8 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public void update(PatientPerson patient) {
         try {
-            validate(patient);
+            validateForNull(patient);
+            validateUniqueness(patient, getAll(), true);
             patientRepository.update(patient);
         } catch (IncorrectPersonException e) {
             LOGGER.error(e);
@@ -73,29 +83,5 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public void deleteById(long id) {
         patientRepository.deleteById(id);
-    }
-
-    private void validate(PatientPerson patient) throws IncorrectPersonException {
-        if (patient.getName() == null) {
-            throw new IncorrectPersonException("Name can not be null");
-        }
-        if (patient.getSurname() == null) {
-            throw new IncorrectPersonException("Surname can not be null");
-        }
-        if (patient.getPhoneNumber() == null) {
-            throw new IncorrectPersonException("Phone number can not be null");
-        }
-        if (patient.getEmail() == null) {
-            throw new IncorrectPersonException("Email can not be null");
-        }
-        Optional<PatientPerson> gotById = getById(patient.getId());
-        List<PatientPerson> all = getAll();
-        List<PatientPerson> repeats = all.stream()
-                .filter(p -> p.getPhoneNumber().equals(patient.getPhoneNumber()) ||
-                        p.getEmail().equals(patient.getEmail()))
-                .toList();
-        if (!repeats.isEmpty() && (gotById.isEmpty() || repeats.stream().anyMatch(p -> p.getId() != patient.getId()))) {
-            throw new IncorrectPersonException("Phone number or email is already registered");
-        }
     }
 }

@@ -1,11 +1,12 @@
-package com.solvd.laba.hospital.service.impl;
+package com.solvd.laba.hospital.service.info.impl;
 
-import com.solvd.laba.hospital.dao.repository.AnalysisRepository;
-import com.solvd.laba.hospital.dao.repository.impl.AnalysisRepositoryImpl;
+import com.solvd.laba.hospital.dao.repository.info.AnalysisRepository;
+import com.solvd.laba.hospital.dao.repository.info.impl.AnalysisRepositoryImpl;
 import com.solvd.laba.hospital.model.exceptions.IncorrectAnalysisException;
 import com.solvd.laba.hospital.model.info.Analysis;
-import com.solvd.laba.hospital.service.AnalysisService;
-import com.solvd.laba.hospital.service.PatientService;
+import com.solvd.laba.hospital.service.info.AnalysisService;
+import com.solvd.laba.hospital.service.person.PatientService;
+import com.solvd.laba.hospital.service.person.impl.PatientServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,7 +22,7 @@ public class AnalysisServiceImpl implements AnalysisService {
         this.patientService = new PatientServiceImpl();
     }
 
-    protected AnalysisServiceImpl(PatientService patientService) {
+    public AnalysisServiceImpl(PatientService patientService) {
         this.analysisRepository = new AnalysisRepositoryImpl();
         this.patientService = patientService;
     }

@@ -1,4 +1,4 @@
-package com.solvd.laba.hospital.dao.repository;
+package com.solvd.laba.hospital.dao.repository.info;
 
 import com.solvd.laba.hospital.model.info.Analysis;
 

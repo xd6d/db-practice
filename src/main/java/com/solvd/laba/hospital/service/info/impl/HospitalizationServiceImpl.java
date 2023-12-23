@@ -1,9 +1,9 @@
-package com.solvd.laba.hospital.service.impl;
+package com.solvd.laba.hospital.service.info.impl;
 
-import com.solvd.laba.hospital.dao.repository.HospitalizationRepository;
-import com.solvd.laba.hospital.dao.repository.impl.HospitalizationRepositoryImpl;
+import com.solvd.laba.hospital.dao.repository.info.HospitalizationRepository;
+import com.solvd.laba.hospital.dao.repository.info.impl.HospitalizationRepositoryImpl;
 import com.solvd.laba.hospital.model.info.Hospitalization;
-import com.solvd.laba.hospital.service.HospitalizationService;
+import com.solvd.laba.hospital.service.info.HospitalizationService;
 
 import java.util.List;
 

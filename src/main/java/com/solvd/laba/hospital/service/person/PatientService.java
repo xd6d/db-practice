@@ -1,4 +1,4 @@
-package com.solvd.laba.hospital.service;
+package com.solvd.laba.hospital.service.person;
 
 import com.solvd.laba.hospital.model.person.PatientPerson;
 

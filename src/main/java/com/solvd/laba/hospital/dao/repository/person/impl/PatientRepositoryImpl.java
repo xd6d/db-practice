@@ -1,7 +1,7 @@
-package com.solvd.laba.hospital.dao.repository.impl;
+package com.solvd.laba.hospital.dao.repository.person.impl;
 
 import com.solvd.laba.hospital.dao.ConnectionPool;
-import com.solvd.laba.hospital.dao.repository.PatientRepository;
+import com.solvd.laba.hospital.dao.repository.person.PatientRepository;
 import com.solvd.laba.hospital.model.person.PatientPerson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

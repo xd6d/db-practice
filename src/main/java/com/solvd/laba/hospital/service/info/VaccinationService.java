@@ -1,4 +1,4 @@
-package com.solvd.laba.hospital.service;
+package com.solvd.laba.hospital.service.info;
 
 import com.solvd.laba.hospital.model.info.Vaccination;
 
