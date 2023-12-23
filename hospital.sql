@@ -97,31 +97,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `hospital`.`appointments`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hospital`.`appointments` (
-  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `time` TIMESTAMP NOT NULL,
-  `patient_id` BIGINT UNSIGNED NOT NULL,
-  `doctor_id` BIGINT UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `fk_appointments_patients1_idx` (`patient_id` ASC) VISIBLE,
-  INDEX `fk_appointments_employees1_idx` (`doctor_id` ASC) VISIBLE,
-  CONSTRAINT `fk_appointments_patients1`
-    FOREIGN KEY (`patient_id`)
-    REFERENCES `hospital`.`patients` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_appointments_employees1`
-    FOREIGN KEY (`doctor_id`)
-    REFERENCES `hospital`.`employees` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `hospital`.`recipes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hospital`.`recipes` (
@@ -142,17 +117,10 @@ CREATE TABLE IF NOT EXISTS `hospital`.`conclusions` (
   `observation` VARCHAR(500) NULL,
   `diagnosis` VARCHAR(500) NULL,
   `recommendations` VARCHAR(500) NULL,
-  `appointment_id` BIGINT UNSIGNED NOT NULL,
   `recipe_id` BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `fk_conclusions_appointments1_idx` (`appointment_id` ASC) VISIBLE,
   INDEX `fk_conclusions_recipes1_idx` (`recipe_id` ASC) VISIBLE,
-  CONSTRAINT `fk_conclusions_appointments1`
-    FOREIGN KEY (`appointment_id`)
-    REFERENCES `hospital`.`appointments` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_conclusions_recipes1`
     FOREIGN KEY (`recipe_id`)
     REFERENCES `hospital`.`recipes` (`id`)
@@ -172,6 +140,38 @@ CREATE TABLE IF NOT EXISTS `hospital`.`medicines` (
   `is_recepted` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hospital`.`appointments`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `hospital`.`appointments` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `time` TIMESTAMP NOT NULL,
+  `patient_id` BIGINT UNSIGNED NOT NULL,
+  `doctor_id` BIGINT UNSIGNED NOT NULL,
+  `conclusion_id` BIGINT UNSIGNED NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  INDEX `fk_appointments_patients1_idx` (`patient_id` ASC) VISIBLE,
+  INDEX `fk_appointments_employees1_idx` (`doctor_id` ASC) VISIBLE,
+  INDEX `fk_appointments_conclusions1_idx` (`conclusion_id` ASC) VISIBLE,
+  CONSTRAINT `fk_appointments_patients1`
+    FOREIGN KEY (`patient_id`)
+    REFERENCES `hospital`.`patients` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_appointments_employees1`
+    FOREIGN KEY (`doctor_id`)
+    REFERENCES `hospital`.`employees` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_appointments_conclusions1`
+    FOREIGN KEY (`conclusion_id`)
+    REFERENCES `hospital`.`conclusions` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
