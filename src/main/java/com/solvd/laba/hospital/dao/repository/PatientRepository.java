@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface PatientRepository {
     PatientPerson create(PatientPerson patient);
 
-    List<PatientPerson> getAll();
+    List<PatientPerson> findAll();
 
     Optional<PatientPerson> findById(long id);
 
