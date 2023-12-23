@@ -6,4 +6,9 @@ import java.util.List;
 
 public interface AnalysisService {
     List<Analysis> getAllByPatientId(long id);
+    Analysis add(Analysis analysis, long patientId);
+
+    void update(Analysis analysis);
+
+    void deleteById(long id);
 }

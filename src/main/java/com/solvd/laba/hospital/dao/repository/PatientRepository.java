@@ -12,7 +12,7 @@ public interface PatientRepository {
 
     Optional<PatientPerson> findById(long id);
 
-    void updateById(PatientPerson patient);
+    void update(PatientPerson patient);
 
     void deleteById(long id);
 }

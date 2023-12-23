@@ -22,7 +22,7 @@ public class PatientServiceImpl implements PatientService {
 
     public PatientServiceImpl() {
         this.patientRepository = new PatientRepositoryImpl();
-        this.analysisService = new AnalysisServiceImpl();
+        this.analysisService = new AnalysisServiceImpl(this);
         this.hospitalizationService = new HospitalizationServiceImpl();
         this.vaccinationService = new VaccinationServiceImpl();
         this.declarationService = new DeclarationServiceImpl();
@@ -64,14 +64,14 @@ public class PatientServiceImpl implements PatientService {
     public void update(PatientPerson patient) {
         try {
             validate(patient);
-            patientRepository.updateById(patient);
+            patientRepository.update(patient);
         } catch (IncorrectPersonException e) {
             LOGGER.error(e);
         }
     }
 
     @Override
-    public void delete(long id) {
+    public void deleteById(long id) {
         patientRepository.deleteById(id);
     }
 

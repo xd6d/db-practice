@@ -91,7 +91,7 @@ public class PatientRepositoryImpl implements PatientRepository {
     }
 
     @Override
-    public void updateById(PatientPerson patient) {
+    public void update(PatientPerson patient) {
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(UPDATE_BY_ID)) {
             ps.setString(1, patient.getName());

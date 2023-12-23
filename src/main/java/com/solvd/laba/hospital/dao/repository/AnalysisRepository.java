@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface AnalysisRepository {
     List<Analysis> findAllByPatientId(long id);
+    Analysis create(Analysis analysis, long patientId);
+    void update(Analysis analysis);
+    void deleteById(long id);
 }

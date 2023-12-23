@@ -14,5 +14,5 @@ public interface PatientService {
 
     void update(PatientPerson patient);
 
-    void delete(long id);
+    void deleteById(long id);
 }
