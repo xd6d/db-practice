@@ -1,4 +1,4 @@
-package com.solvd.laba;
+package com.solvd.laba.hospital;
 
 public class Demo {
 
