@@ -8,16 +8,16 @@ import java.util.List;
 public abstract class PersonService {
     void validateForNull(Person person) throws IncorrectPersonException {
         if (person.getName() == null) {
-            throw new IncorrectPersonException("Name can not be null");
+            throw new IncorrectPersonException("Name cannot be null");
         }
         if (person.getSurname() == null) {
-            throw new IncorrectPersonException("Surname can not be null");
+            throw new IncorrectPersonException("Surname cannot be null");
         }
         if (person.getPhoneNumber() == null) {
-            throw new IncorrectPersonException("Phone number can not be null");
+            throw new IncorrectPersonException("Phone number cannot be null");
         }
         if (person.getEmail() == null) {
-            throw new IncorrectPersonException("Email can not be null");
+            throw new IncorrectPersonException("Email cannot be null");
         }
     }
 

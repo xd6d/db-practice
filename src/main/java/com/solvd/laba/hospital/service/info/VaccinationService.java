@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface VaccinationService {
     List<Vaccination> getAllByPatientId(long id);
+
+    Vaccination add(Vaccination vaccination, long patientId);
 }

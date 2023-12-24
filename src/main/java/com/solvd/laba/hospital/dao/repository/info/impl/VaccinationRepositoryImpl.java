@@ -6,16 +6,14 @@ import com.solvd.laba.hospital.model.info.Vaccination;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class VaccinationRepositoryImpl implements VaccinationRepository {
     private static final Logger LOGGER = LogManager.getLogger(VaccinationRepositoryImpl.class);
     private static final String FIND_ALL_BY_PATIENT_ID = "SELECT * FROM vaccinations WHERE patient_id = ?;";
+    private static final String CREATE = "INSERT INTO vaccinations(name, date, expires, patient_id) VALUES (?, ?, ?, ?);";
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -41,5 +39,27 @@ public class VaccinationRepositoryImpl implements VaccinationRepository {
             connectionPool.releaseConnection(connection);
         }
         return vaccinations;
+    }
+
+    @Override
+    public Vaccination create(Vaccination vaccination, long patientId) {
+        Connection connection = connectionPool.getConnection();
+        try (PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, vaccination.getName());
+            ps.setDate(2, new Date(vaccination.getDate().getTime()));
+            ps.setDate(3, new Date(vaccination.getExpires().getTime()));
+            ps.setLong(4, patientId);
+
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            while (rs.next()) {
+                vaccination.setId(rs.getLong(1));
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+        return vaccination;
     }
 }

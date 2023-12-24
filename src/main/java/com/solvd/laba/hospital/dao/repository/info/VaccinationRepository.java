@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface VaccinationRepository {
     List<Vaccination> findAllByPatientId(long id);
+
+    Vaccination create(Vaccination vaccination, long patientId);
 }

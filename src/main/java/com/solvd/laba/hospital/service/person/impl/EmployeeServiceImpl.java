@@ -40,7 +40,7 @@ public class EmployeeServiceImpl extends PersonService implements EmployeeServic
     private void validateForNull(EmployeePerson employee) throws IncorrectPersonException {
         super.validateForNull(employee);
         if (employee.getPosition() == null) {
-            throw new IncorrectEmployeeException("Position can not be null");
+            throw new IncorrectEmployeeException("Position cannot be null");
         }
     }
 }

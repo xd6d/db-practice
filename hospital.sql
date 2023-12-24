@@ -97,17 +97,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `hospital`.`recipes`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hospital`.`recipes` (
-  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `reason` VARCHAR(500) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `hospital`.`conclusions`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hospital`.`conclusions` (
@@ -117,15 +106,8 @@ CREATE TABLE IF NOT EXISTS `hospital`.`conclusions` (
   `observation` VARCHAR(500) NULL,
   `diagnosis` VARCHAR(500) NULL,
   `recommendations` VARCHAR(500) NULL,
-  `recipe_id` BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `fk_conclusions_recipes1_idx` (`recipe_id` ASC) VISIBLE,
-  CONSTRAINT `fk_conclusions_recipes1`
-    FOREIGN KEY (`recipe_id`)
-    REFERENCES `hospital`.`recipes` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
@@ -251,28 +233,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `hospital`.`recipe_medicines`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hospital`.`recipe_medicines` (
-  `recipe_id` BIGINT UNSIGNED NOT NULL,
-  `medicine_id` BIGINT UNSIGNED NOT NULL,
-  PRIMARY KEY (`recipe_id`, `medicine_id`),
-  INDEX `fk_recipes_has_medicines_medicines1_idx` (`medicine_id` ASC) VISIBLE,
-  INDEX `fk_recipes_has_medicines_recipes1_idx` (`recipe_id` ASC) VISIBLE,
-  CONSTRAINT `fk_recipes_has_medicines_recipes1`
-    FOREIGN KEY (`recipe_id`)
-    REFERENCES `hospital`.`recipes` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_recipes_has_medicines_medicines1`
-    FOREIGN KEY (`medicine_id`)
-    REFERENCES `hospital`.`medicines` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `hospital`.`appointment_services`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hospital`.`appointment_services` (
@@ -289,6 +249,46 @@ CREATE TABLE IF NOT EXISTS `hospital`.`appointment_services` (
   CONSTRAINT `fk_appointments_has_services_services1`
     FOREIGN KEY (`service_id`)
     REFERENCES `hospital`.`services` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hospital`.`conclusion_medicines`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `hospital`.`conclusion_medicines` (
+  `conclusion_id` BIGINT UNSIGNED NOT NULL,
+  `medicine_id` BIGINT UNSIGNED NOT NULL,
+  PRIMARY KEY (`conclusion_id`, `medicine_id`),
+  INDEX `fk_conclusions_has_medicines_medicines1_idx` (`medicine_id` ASC) VISIBLE,
+  INDEX `fk_conclusions_has_medicines_conclusions1_idx` (`conclusion_id` ASC) VISIBLE,
+  CONSTRAINT `fk_conclusions_has_medicines_conclusions1`
+    FOREIGN KEY (`conclusion_id`)
+    REFERENCES `hospital`.`conclusions` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_conclusions_has_medicines_medicines1`
+    FOREIGN KEY (`medicine_id`)
+    REFERENCES `hospital`.`medicines` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hospital`.`allergies`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `hospital`.`allergies` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  `patient_id` BIGINT UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  INDEX `fk_allergies_patients1_idx` (`patient_id` ASC) VISIBLE,
+  CONSTRAINT `fk_allergies_patients1`
+    FOREIGN KEY (`patient_id`)
+    REFERENCES `hospital`.`patients` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

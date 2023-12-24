@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface HospitalizationService {
     List<Hospitalization> getAllByPatientId(long id);
+
+    Hospitalization add(Hospitalization hospitalization, long patientId);
 }

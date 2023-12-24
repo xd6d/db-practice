@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface DeclarationRepository {
     Optional<Declaration> findByPatientId(long id);
 
-    Declaration create(Declaration declaration);
+    Declaration create(Declaration declaration, long patientId);
 
     void update(Declaration declaration);
 

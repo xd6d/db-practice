@@ -12,6 +12,7 @@ import java.util.Optional;
 public class DeclarationRepositoryImpl implements DeclarationRepository {
     private static final Logger LOGGER = LogManager.getLogger(DeclarationRepositoryImpl.class);
     private static final String CREATE = "INSERT INTO declarations(doctor_id, created, expires) VALUES (?, ?, ?);";
+    private static final String UPDATE_PATIENT = "UPDATE patients SET declaration_id = ? WHERE id = ?;";
     private static final String FIND_DECLARATION_ID_BY_PATIENT_ID = "SELECT declaration_id FROM patients WHERE id = ?;";
     private static final String FIND_DECLARATION_BY_ID = "SELECT * FROM declarations WHERE id = ?;";
     private static final String UPDATE = "UPDATE declarations SET expires = ? WHERE id = ?;";
@@ -20,21 +21,38 @@ public class DeclarationRepositoryImpl implements DeclarationRepository {
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
-    public Declaration create(Declaration declaration) {
+    public Declaration create(Declaration declaration, long patientId) {
         Connection connection = connectionPool.getConnection();
-        try (PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setLong(1, declaration.getDoctor().getId());
-            ps.setDate(2, new Date(declaration.getCreated().getTime()));
-            ps.setDate(3, new Date(declaration.getExpires().getTime()));
+        try (PreparedStatement create = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement updatePatient = connection.prepareStatement(UPDATE_PATIENT)) {
+            connection.setAutoCommit(false);
+            create.setLong(1, declaration.getDoctor().getId());
+            create.setDate(2, new Date(declaration.getCreated().getTime()));
+            create.setDate(3, new Date(declaration.getExpires().getTime()));
 
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
+            create.executeUpdate();
+            ResultSet rs = create.getGeneratedKeys();
             while (rs.next()) {
                 declaration.setId(rs.getLong(1));
             }
+//todo test
+            updatePatient.setLong(2, patientId);
+            updatePatient.setLong(1, declaration.getId());
+            updatePatient.executeUpdate();
+            connection.commit();
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                LOGGER.error(e);
+            }
             LOGGER.error(e);
         } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                LOGGER.error(e);
+            }
             connectionPool.releaseConnection(connection);
         }
         return declaration;
