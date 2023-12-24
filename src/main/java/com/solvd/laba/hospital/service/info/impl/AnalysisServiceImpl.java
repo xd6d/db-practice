@@ -6,7 +6,6 @@ import com.solvd.laba.hospital.model.exceptions.IncorrectAnalysisException;
 import com.solvd.laba.hospital.model.exceptions.IncorrectInfoException;
 import com.solvd.laba.hospital.model.info.Analysis;
 import com.solvd.laba.hospital.service.info.AnalysisService;
-import com.solvd.laba.hospital.service.person.PatientService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,10 +14,6 @@ import java.util.List;
 public class AnalysisServiceImpl extends InfoService implements AnalysisService {
     private static final Logger LOGGER = LogManager.getLogger(AnalysisServiceImpl.class);
     private final AnalysisRepository analysisRepository = new AnalysisRepositoryImpl();
-
-    public AnalysisServiceImpl(PatientService patientService) {
-        super(patientService);
-    }
 
     @Override
     public List<Analysis> getAllByPatientId(long id) {

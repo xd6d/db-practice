@@ -25,11 +25,11 @@ public class PatientServiceImpl extends PersonService implements PatientService 
 
     public PatientServiceImpl() {
         this.patientRepository = new PatientRepositoryImpl();
-        this.analysisService = new AnalysisServiceImpl(this);
-        this.hospitalizationService = new HospitalizationServiceImpl(this);
-        this.vaccinationService = new VaccinationServiceImpl(this);
-        this.allergyService = new AllergyServiceImpl(this);
-        this.declarationService = new DeclarationServiceImpl(this);
+        this.analysisService = new AnalysisServiceImpl();
+        this.hospitalizationService = new HospitalizationServiceImpl();
+        this.vaccinationService = new VaccinationServiceImpl();
+        this.allergyService = new AllergyServiceImpl();
+        this.declarationService = new DeclarationServiceImpl();
     }
 
     @Override

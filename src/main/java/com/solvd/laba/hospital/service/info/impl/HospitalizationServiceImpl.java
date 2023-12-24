@@ -6,7 +6,6 @@ import com.solvd.laba.hospital.model.exceptions.IncorrectHospitalizationExceptio
 import com.solvd.laba.hospital.model.exceptions.IncorrectInfoException;
 import com.solvd.laba.hospital.model.info.Hospitalization;
 import com.solvd.laba.hospital.service.info.HospitalizationService;
-import com.solvd.laba.hospital.service.person.PatientService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,10 +14,6 @@ import java.util.List;
 public class HospitalizationServiceImpl extends InfoService implements HospitalizationService {
     private static final Logger LOGGER = LogManager.getLogger(HospitalizationServiceImpl.class);
     private final HospitalizationRepository hospitalizationRepository = new HospitalizationRepositoryImpl();
-
-    public HospitalizationServiceImpl(PatientService patientService) {
-        super(patientService);
-    }
 
     @Override
     public List<Hospitalization> getAllByPatientId(long id) {

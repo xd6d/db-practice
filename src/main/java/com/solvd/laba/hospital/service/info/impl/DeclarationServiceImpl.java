@@ -6,7 +6,6 @@ import com.solvd.laba.hospital.model.exceptions.IncorrectDeclarationException;
 import com.solvd.laba.hospital.model.exceptions.IncorrectInfoException;
 import com.solvd.laba.hospital.model.info.Declaration;
 import com.solvd.laba.hospital.service.info.DeclarationService;
-import com.solvd.laba.hospital.service.person.PatientService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,10 +14,6 @@ import java.util.Date;
 public class DeclarationServiceImpl extends InfoService implements DeclarationService {
     private static final Logger LOGGER = LogManager.getLogger(DeclarationServiceImpl.class);
     private final DeclarationRepository declarationRepository = new DeclarationRepositoryImpl();
-
-    public DeclarationServiceImpl(PatientService patientService) {
-        super(patientService);
-    }
 
     @Override
     public Declaration getByPatientId(long id) {

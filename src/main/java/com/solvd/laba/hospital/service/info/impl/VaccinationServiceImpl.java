@@ -6,7 +6,6 @@ import com.solvd.laba.hospital.model.exceptions.IncorrectInfoException;
 import com.solvd.laba.hospital.model.exceptions.IncorrectVaccinationException;
 import com.solvd.laba.hospital.model.info.Vaccination;
 import com.solvd.laba.hospital.service.info.VaccinationService;
-import com.solvd.laba.hospital.service.person.PatientService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,10 +14,6 @@ import java.util.List;
 public class VaccinationServiceImpl extends InfoService implements VaccinationService {
     private static final Logger LOGGER = LogManager.getLogger(VaccinationServiceImpl.class);
     private final VaccinationRepository vaccinationRepository = new VaccinationRepositoryImpl();
-
-    public VaccinationServiceImpl(PatientService patientService) {
-        super(patientService);
-    }
 
     @Override
     public List<Vaccination> getAllByPatientId(long id) {

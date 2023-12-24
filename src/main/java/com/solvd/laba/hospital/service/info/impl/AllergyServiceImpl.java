@@ -6,7 +6,6 @@ import com.solvd.laba.hospital.model.exceptions.IncorrectAllergyException;
 import com.solvd.laba.hospital.model.exceptions.IncorrectInfoException;
 import com.solvd.laba.hospital.model.info.Allergy;
 import com.solvd.laba.hospital.service.info.AllergyService;
-import com.solvd.laba.hospital.service.person.PatientService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,10 +14,6 @@ import java.util.List;
 public class AllergyServiceImpl extends InfoService implements AllergyService {
     private static final Logger LOGGER = LogManager.getLogger(AllergyServiceImpl.class);
     private final AllergyRepository allergyRepository = new AllergyRepositoryImpl();
-
-    public AllergyServiceImpl(PatientService patientService) {
-        super(patientService);
-    }
 
     @Override
     public List<Allergy> getAllByPatientId(long id) {
