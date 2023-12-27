@@ -35,7 +35,7 @@ public class DeclarationRepositoryImpl implements DeclarationRepository {
             while (rs.next()) {
                 declaration.setId(rs.getLong(1));
             }
-//todo test
+
             updatePatient.setLong(2, patientId);
             updatePatient.setLong(1, declaration.getId());
             updatePatient.executeUpdate();
