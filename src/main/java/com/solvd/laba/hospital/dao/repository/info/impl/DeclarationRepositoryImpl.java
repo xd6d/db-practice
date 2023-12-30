@@ -11,10 +11,8 @@ import java.util.Optional;
 
 public class DeclarationRepositoryImpl implements DeclarationRepository {
     private static final Logger LOGGER = LogManager.getLogger(DeclarationRepositoryImpl.class);
-    private static final String CREATE = "INSERT INTO declarations(doctor_id, created, expires) VALUES (?, ?, ?);";
-    private static final String UPDATE_PATIENT = "UPDATE patients SET declaration_id = ? WHERE id = ?;";
-    private static final String FIND_DECLARATION_ID_BY_PATIENT_ID = "SELECT declaration_id FROM patients WHERE id = ?;";
-    private static final String FIND_DECLARATION_BY_ID = "SELECT * FROM declarations WHERE id = ?;";
+    private static final String CREATE = "INSERT INTO declarations(doctor_id, created, expires, patient_id) VALUES (?, ?, ?, ?);";
+    private static final String FIND_DECLARATION_BY_ID = "SELECT * FROM declarations WHERE patient_id = ? ;";
     private static final String UPDATE = "UPDATE declarations SET expires = ? WHERE id = ?;";
     private static final String DELETE = "DELETE FROM declarations WHERE id = ?;";
 
@@ -23,36 +21,21 @@ public class DeclarationRepositoryImpl implements DeclarationRepository {
     @Override
     public Declaration create(Declaration declaration, long patientId) {
         Connection connection = connectionPool.getConnection();
-        try (PreparedStatement create = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement updatePatient = connection.prepareStatement(UPDATE_PATIENT)) {
-            connection.setAutoCommit(false);
+        try (PreparedStatement create = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
+
             create.setLong(1, declaration.getDoctor().getId());
             create.setDate(2, new Date(declaration.getCreated().getTime()));
             create.setDate(3, new Date(declaration.getExpires().getTime()));
+            create.setLong(4, patientId);
 
             create.executeUpdate();
             ResultSet rs = create.getGeneratedKeys();
             while (rs.next()) {
                 declaration.setId(rs.getLong(1));
             }
-//todo test
-            updatePatient.setLong(2, patientId);
-            updatePatient.setLong(1, declaration.getId());
-            updatePatient.executeUpdate();
-            connection.commit();
         } catch (SQLException e) {
-            try {
-                connection.rollback();
-            } catch (SQLException ex) {
-                LOGGER.error(e);
-            }
             LOGGER.error(e);
         } finally {
-            try {
-                connection.setAutoCommit(true);
-            } catch (SQLException e) {
-                LOGGER.error(e);
-            }
             connectionPool.releaseConnection(connection);
         }
         return declaration;
@@ -62,16 +45,8 @@ public class DeclarationRepositoryImpl implements DeclarationRepository {
     public Optional<Declaration> findByPatientId(long patientId) {
         Declaration declaration = null;
         Connection connection = connectionPool.getConnection();
-        try (PreparedStatement findId = connection.prepareStatement(FIND_DECLARATION_ID_BY_PATIENT_ID);
-             PreparedStatement findEntity = connection.prepareStatement(FIND_DECLARATION_BY_ID)) {
-            findId.setLong(1, patientId);
-
-            ResultSet findIdResultSet = findId.executeQuery();
-            long id = 0;
-            while (findIdResultSet.next()) {
-                id = findIdResultSet.getLong("declaration_id");
-            }
-            findEntity.setLong(1, id);
+        try (PreparedStatement findEntity = connection.prepareStatement(FIND_DECLARATION_BY_ID)) {
+            findEntity.setLong(1, patientId);
 
             ResultSet findEntityResultSet = findEntity.executeQuery();
             while (findEntityResultSet.next()) {
