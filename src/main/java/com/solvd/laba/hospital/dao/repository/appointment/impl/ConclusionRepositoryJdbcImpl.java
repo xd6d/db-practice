@@ -13,7 +13,6 @@ public class ConclusionRepositoryJdbcImpl implements ConclusionRepository {
     private static final Logger LOGGER = LogManager.getLogger(ConclusionRepositoryJdbcImpl.class);
     private static final String CREATE = "INSERT INTO conclusions(complaint, medical_history, observation, diagnosis, recommendations) VALUES (?, ?, ?, ?, ?);";
     private static final String SAVE_MEDICINES = "INSERT INTO conclusion_medicines(conclusion_id, medicine_id) VALUES (?, ?);";
-    private static final String UPDATE_APPOINTMENT = "UPDATE appointments SET conclusion_id = ? WHERE id = ?;";
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -21,14 +20,14 @@ public class ConclusionRepositoryJdbcImpl implements ConclusionRepository {
     public Conclusion create(Conclusion conclusion, long appointmentId) {
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement createConclusion = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement saveMedicines = connection.prepareStatement(SAVE_MEDICINES);
-             PreparedStatement updateAppointment = connection.prepareStatement(UPDATE_APPOINTMENT)) {
+             PreparedStatement saveMedicines = connection.prepareStatement(SAVE_MEDICINES)) {
             connection.setAutoCommit(false);
             createConclusion.setString(1, conclusion.getComplaint());
             createConclusion.setString(2, conclusion.getMedicalHistory());
             createConclusion.setString(3, conclusion.getObservation());
             createConclusion.setString(4, conclusion.getDiagnosis());
             createConclusion.setString(5, conclusion.getRecommendation());
+            createConclusion.setLong(5, appointmentId);
 
             createConclusion.executeUpdate();
             ResultSet rs = createConclusion.getGeneratedKeys();
@@ -42,9 +41,6 @@ public class ConclusionRepositoryJdbcImpl implements ConclusionRepository {
                 saveMedicines.executeUpdate();
             }
 
-            updateAppointment.setLong(1, conclusion.getId());
-            updateAppointment.setLong(2, appointmentId);
-            updateAppointment.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
             try {
