@@ -10,8 +10,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HospitalizationRepositoryImpl implements HospitalizationRepository {
-    private static final Logger LOGGER = LogManager.getLogger(HospitalizationRepositoryImpl.class);
+public class HospitalizationRepositoryJdbcImpl implements HospitalizationRepository {
+    private static final Logger LOGGER = LogManager.getLogger(HospitalizationRepositoryJdbcImpl.class);
     private static final String FIND_ALL_BY_PATIENT_ID = "SELECT * FROM hospitalizations WHERE patient_id = ?;";
     private static final String CREATE = "INSERT INTO hospitalizations(place, date, patients_condition, description, patient_id) VALUES (?, ?, ?, ?, ?);";
 
@@ -43,7 +43,7 @@ public class HospitalizationRepositoryImpl implements HospitalizationRepository 
     }
 
     @Override
-    public Hospitalization create(Hospitalization hospitalization, long patientId) {
+    public void create(Hospitalization hospitalization, long patientId) {
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, hospitalization.getPlace());
@@ -62,6 +62,5 @@ public class HospitalizationRepositoryImpl implements HospitalizationRepository 
         } finally {
             connectionPool.releaseConnection(connection);
         }
-        return hospitalization;
     }
 }

@@ -9,8 +9,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
-public class AppointmentRepositoryImpl implements AppointmentRepository {
-    private static final Logger LOGGER = LogManager.getLogger(AppointmentRepositoryImpl.class);
+public class AppointmentRepositoryJdbcImpl implements AppointmentRepository {
+    private static final Logger LOGGER = LogManager.getLogger(AppointmentRepositoryJdbcImpl.class);
     private static final String CREATE = "INSERT INTO appointments(time, patient_id, doctor_id) VALUES (?, ?, ?);";
     private static final String SAVE_SERVICES = "INSERT INTO appointment_services(appointment_id, service_id) VALUES (?, ?);";
     private static final String EXISTS_BY_ID = "SELECT * FROM appointments WHERE id = ?";

@@ -10,8 +10,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VaccinationRepositoryImpl implements VaccinationRepository {
-    private static final Logger LOGGER = LogManager.getLogger(VaccinationRepositoryImpl.class);
+public class VaccinationRepositoryJdbcImpl implements VaccinationRepository {
+    private static final Logger LOGGER = LogManager.getLogger(VaccinationRepositoryJdbcImpl.class);
     private static final String FIND_ALL_BY_PATIENT_ID = "SELECT * FROM vaccinations WHERE patient_id = ?;";
     private static final String CREATE = "INSERT INTO vaccinations(name, date, expires, patient_id) VALUES (?, ?, ?, ?);";
 
@@ -42,7 +42,7 @@ public class VaccinationRepositoryImpl implements VaccinationRepository {
     }
 
     @Override
-    public Vaccination create(Vaccination vaccination, long patientId) {
+    public void create(Vaccination vaccination, long patientId) {
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, vaccination.getName());
@@ -60,6 +60,5 @@ public class VaccinationRepositoryImpl implements VaccinationRepository {
         } finally {
             connectionPool.releaseConnection(connection);
         }
-        return vaccination;
     }
 }

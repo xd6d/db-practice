@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.laba.hospital.dao.repository.info.HospitalizationRepository">
+
+    <select id="findAllByPatientId" resultMap="hospitalizationResultMap">
+        SELECT * FROM hospitalizations WHERE patient_id = #{id}
+    </select>
+
+    <insert id="create" keyColumn="id" keyProperty="hospitalization.id" useGeneratedKeys="true">
+        INSERT INTO hospitalizations(place, date, patients_condition, description, patient_id)
+        VALUES (#{hospitalization.place}, #{hospitalization.date}, #{hospitalization.condition}, #{hospitalization.description}, #{patientId})
+    </insert>
+
+    <resultMap id="hospitalizationResultMap" type="com.solvd.laba.hospital.model.info.Hospitalization" autoMapping="false">
+        <id column="id" property="id"/>
+        <result column="place" property="place"/>
+        <result column="date" property="date"/>
+        <result column="patients_condition" property="condition"/>
+        <result column="description" property="description"/>
+    </resultMap>
+</mapper>

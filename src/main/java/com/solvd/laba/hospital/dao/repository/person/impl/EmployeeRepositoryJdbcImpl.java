@@ -11,15 +11,15 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeRepositoryImpl implements EmployeeRepository {
-    private static final Logger LOGGER = LogManager.getLogger(EmployeeRepositoryImpl.class);
+public class EmployeeRepositoryJdbcImpl implements EmployeeRepository {
+    private static final Logger LOGGER = LogManager.getLogger(EmployeeRepositoryJdbcImpl.class);
     private static final String CREATE = "INSERT INTO employees(name, surname, phone_number, email, degree, position_name) VALUES (?, ?, ?, ?, ?, ?);";
     private static final String FIND_ALL = "SELECT * FROM employees;";
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
-    public EmployeePerson create(EmployeePerson employee) {
+    public void create(EmployeePerson employee) {
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, employee.getName());
@@ -39,7 +39,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         } finally {
             connectionPool.releaseConnection(connection);
         }
-        return employee;
     }
 
     @Override

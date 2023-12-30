@@ -8,8 +8,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
-public class MedicineRepositoryImpl implements MedicineRepository {
-    private static final Logger LOGGER = LogManager.getLogger(MedicineRepositoryImpl.class);
+public class MedicineRepositoryJdbcImpl implements MedicineRepository {
+    private static final Logger LOGGER = LogManager.getLogger(MedicineRepositoryJdbcImpl.class);
     private static final String CREATE = "INSERT INTO medicines(name, price, description, is_recepted) VALUES (?, ?, ?, ?);";
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();

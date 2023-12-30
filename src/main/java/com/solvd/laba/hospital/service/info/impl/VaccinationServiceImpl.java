@@ -1,7 +1,7 @@
 package com.solvd.laba.hospital.service.info.impl;
 
 import com.solvd.laba.hospital.dao.repository.info.VaccinationRepository;
-import com.solvd.laba.hospital.dao.repository.info.impl.VaccinationRepositoryImpl;
+import com.solvd.laba.hospital.dao.repository.info.impl.VaccinationRepositoryJdbcImpl;
 import com.solvd.laba.hospital.model.exceptions.IncorrectInfoException;
 import com.solvd.laba.hospital.model.exceptions.IncorrectVaccinationException;
 import com.solvd.laba.hospital.model.info.Vaccination;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class VaccinationServiceImpl extends InfoService implements VaccinationService {
     private static final Logger LOGGER = LogManager.getLogger(VaccinationServiceImpl.class);
-    private final VaccinationRepository vaccinationRepository = new VaccinationRepositoryImpl();
+    private final VaccinationRepository vaccinationRepository = new VaccinationRepositoryJdbcImpl();
 
     @Override
     public List<Vaccination> getAllByPatientId(long id) {

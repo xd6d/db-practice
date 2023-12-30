@@ -1,7 +1,7 @@
 package com.solvd.laba.hospital.service.info.impl;
 
 import com.solvd.laba.hospital.dao.repository.info.AllergyRepository;
-import com.solvd.laba.hospital.dao.repository.info.impl.AllergyRepositoryImpl;
+import com.solvd.laba.hospital.dao.repository.info.impl.AllergyRepositoryJdbcImpl;
 import com.solvd.laba.hospital.model.exceptions.IncorrectAllergyException;
 import com.solvd.laba.hospital.model.exceptions.IncorrectInfoException;
 import com.solvd.laba.hospital.model.info.Allergy;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AllergyServiceImpl extends InfoService implements AllergyService {
     private static final Logger LOGGER = LogManager.getLogger(AllergyServiceImpl.class);
-    private final AllergyRepository allergyRepository = new AllergyRepositoryImpl();
+    private final AllergyRepository allergyRepository = new AllergyRepositoryJdbcImpl();
 
     @Override
     public List<Allergy> getAllByPatientId(long id) {

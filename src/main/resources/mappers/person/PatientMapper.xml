@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.laba.hospital.dao.repository.person.PatientRepository">
+
+    <insert id="create" keyColumn="id" keyProperty="id" useGeneratedKeys="true"
+            parameterType="com.solvd.laba.hospital.model.person.PatientPerson">
+        INSERT INTO patients(name, surname, phone_number, email) VALUES (#{name}, #{surname}, #{phoneNumber}, #{email})
+    </insert>
+
+    <sql id="select-patients">
+        SELECT p.*, a.id as a_id, a.name as a_name, a.value as a_value, a.unit as a_unit, a.healthy_value as a_healthy_value FROM patients p
+        LEFT JOIN analyses a ON p.id = a.patient_id
+    </sql>
+
+    <select id="findById" resultMap="patientResultMap">
+        <include refid="select-patients"/>
+        WHERE p.id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="patientResultMap">
+        <include refid="select-patients"/>
+    </select>
+
+    <update id="update">
+        UPDATE patients SET name = #{name}, surname = #{surname}, phone_number = #{phoneNumber}, email = #{email}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM patients WHERE id = #{id}
+    </delete>
+
+    <resultMap id="patientResultMap" type="com.solvd.laba.hospital.model.person.PatientPerson"
+               extends="com.solvd.laba.hospital.dao.repository.person.personResultMap">
+        <collection property="analyses" columnPrefix="a_"
+                    resultMap="com.solvd.laba.hospital.dao.repository.info.AnalysisRepository.analysisResultMap"/>
+    </resultMap>
+
+</mapper>

@@ -15,4 +15,13 @@ public enum Position {
         this.name = name;
         this.isDoctor = isDoctor;
     }
+
+    public static Position fromName(String name) {
+        for (Position p : Position.values()) {
+            if (p.getName().equals(name)) {
+                return p;
+            }
+        }
+        return null;
+    }
 }

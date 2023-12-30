@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.laba.hospital.dao.repository.person.EmployeeRepository">
+
+    <insert id="create" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO employees(name, surname, phone_number, email, degree, position_name)
+        VALUES (#{name}, #{surname}, #{phoneNumber}, #{email}, #{degree}, #{position.name})
+    </insert>
+
+    <select id="findAll" resultMap="employeeResultMap">
+        SELECT * FROM employees
+    </select>
+
+    <resultMap id="employeeResultMap" type="com.solvd.laba.hospital.model.person.EmployeePerson"
+               extends="com.solvd.laba.hospital.dao.repository.person.personResultMap">
+        <result column="degree" property="degree"/>
+        <result property="position" column="position_name"/>
+    </resultMap>
+
+</mapper>

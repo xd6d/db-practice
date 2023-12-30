@@ -1,7 +1,7 @@
 package com.solvd.laba.hospital.service.appointment.impl;
 
 import com.solvd.laba.hospital.dao.repository.appointment.AppointmentRepository;
-import com.solvd.laba.hospital.dao.repository.appointment.impl.AppointmentRepositoryImpl;
+import com.solvd.laba.hospital.dao.repository.appointment.impl.AppointmentRepositoryJdbcImpl;
 import com.solvd.laba.hospital.model.appointment.Appointment;
 import com.solvd.laba.hospital.model.exceptions.IncorrectAppointmentException;
 import com.solvd.laba.hospital.service.appointment.AppointmentService;
@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 public class AppointmentServiceImpl implements AppointmentService {
     private final static Logger LOGGER = LogManager.getLogger(AppointmentServiceImpl.class);
-    private final AppointmentRepository appointmentRepository = new AppointmentRepositoryImpl();
+    private final AppointmentRepository appointmentRepository = new AppointmentRepositoryJdbcImpl();
 
     @Override
     public Appointment add(Appointment appointment) {

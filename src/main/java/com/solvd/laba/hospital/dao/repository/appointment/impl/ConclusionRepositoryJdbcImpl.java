@@ -9,8 +9,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
-public class ConclusionRepositoryImpl implements ConclusionRepository {
-    private static final Logger LOGGER = LogManager.getLogger(ConclusionRepositoryImpl.class);
+public class ConclusionRepositoryJdbcImpl implements ConclusionRepository {
+    private static final Logger LOGGER = LogManager.getLogger(ConclusionRepositoryJdbcImpl.class);
     private static final String CREATE = "INSERT INTO conclusions(complaint, medical_history, observation, diagnosis, recommendations) VALUES (?, ?, ?, ?, ?);";
     private static final String SAVE_MEDICINES = "INSERT INTO conclusion_medicines(conclusion_id, medicine_id) VALUES (?, ?);";
     private static final String UPDATE_APPOINTMENT = "UPDATE appointments SET conclusion_id = ? WHERE id = ?;";

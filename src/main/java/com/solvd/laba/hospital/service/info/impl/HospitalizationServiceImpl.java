@@ -1,7 +1,7 @@
 package com.solvd.laba.hospital.service.info.impl;
 
 import com.solvd.laba.hospital.dao.repository.info.HospitalizationRepository;
-import com.solvd.laba.hospital.dao.repository.info.impl.HospitalizationRepositoryImpl;
+import com.solvd.laba.hospital.dao.repository.info.impl.HospitalizationRepositoryJdbcImpl;
 import com.solvd.laba.hospital.model.exceptions.IncorrectHospitalizationException;
 import com.solvd.laba.hospital.model.exceptions.IncorrectInfoException;
 import com.solvd.laba.hospital.model.info.Hospitalization;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class HospitalizationServiceImpl extends InfoService implements HospitalizationService {
     private static final Logger LOGGER = LogManager.getLogger(HospitalizationServiceImpl.class);
-    private final HospitalizationRepository hospitalizationRepository = new HospitalizationRepositoryImpl();
+    private final HospitalizationRepository hospitalizationRepository = new HospitalizationRepositoryJdbcImpl();
 
     @Override
     public List<Hospitalization> getAllByPatientId(long id) {
