@@ -11,13 +11,13 @@ import java.sql.*;
 
 public class ConclusionRepositoryJdbcImpl implements ConclusionRepository {
     private static final Logger LOGGER = LogManager.getLogger(ConclusionRepositoryJdbcImpl.class);
-    private static final String CREATE = "INSERT INTO conclusions(complaint, medical_history, observation, diagnosis, recommendations) VALUES (?, ?, ?, ?, ?);";
+    private static final String CREATE = "INSERT INTO conclusions(complaint, medical_history, observation, diagnosis, recommendation, appointment_id) VALUES (?, ?, ?, ?, ?, ?);";
     private static final String SAVE_MEDICINES = "INSERT INTO conclusion_medicines(conclusion_id, medicine_id) VALUES (?, ?);";
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
-    public Conclusion create(Conclusion conclusion, long appointmentId) {
+    public void create(Conclusion conclusion, long appointmentId) {
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement createConclusion = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS);
              PreparedStatement saveMedicines = connection.prepareStatement(SAVE_MEDICINES)) {
@@ -57,6 +57,5 @@ public class ConclusionRepositoryJdbcImpl implements ConclusionRepository {
             }
             connectionPool.releaseConnection(connection);
         }
-        return conclusion;
     }
 }

@@ -18,7 +18,7 @@ public class AppointmentRepositoryJdbcImpl implements AppointmentRepository {
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
-    public Appointment create(Appointment appointment) {
+    public void create(Appointment appointment) {
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement createApp = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS);
              PreparedStatement saveServices = connection.prepareStatement(SAVE_SERVICES)) {
@@ -54,7 +54,6 @@ public class AppointmentRepositoryJdbcImpl implements AppointmentRepository {
             }
             connectionPool.releaseConnection(connection);
         }
-        return appointment;
     }
 
     @Override

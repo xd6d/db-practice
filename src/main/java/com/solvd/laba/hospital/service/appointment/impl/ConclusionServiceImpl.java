@@ -1,7 +1,7 @@
 package com.solvd.laba.hospital.service.appointment.impl;
 
 import com.solvd.laba.hospital.dao.repository.appointment.ConclusionRepository;
-import com.solvd.laba.hospital.dao.repository.appointment.impl.ConclusionRepositoryJdbcImpl;
+import com.solvd.laba.hospital.dao.repository.appointment.impl.ConclusionRepositoryMybatisImpl;
 import com.solvd.laba.hospital.model.appointment.Conclusion;
 import com.solvd.laba.hospital.model.exceptions.IncorrectAppointmentException;
 import com.solvd.laba.hospital.service.appointment.AppointmentService;
@@ -11,7 +11,8 @@ import org.apache.logging.log4j.Logger;
 
 public class ConclusionServiceImpl implements ConclusionService {
     private final static Logger LOGGER = LogManager.getLogger(ConclusionServiceImpl.class);
-    private final ConclusionRepository conclusionRepository = new ConclusionRepositoryJdbcImpl();
+    private final ConclusionRepository conclusionRepository = new ConclusionRepositoryMybatisImpl();
+    //    private final ConclusionRepository conclusionRepository = new ConclusionRepositoryJdbcImpl();
     private final AppointmentService appointmentService = new AppointmentServiceImpl();
 
     @Override

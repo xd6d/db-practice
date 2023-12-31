@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `hospital`.`medicines` (
   `name` VARCHAR(45) NOT NULL,
   `price` DOUBLE NOT NULL,
   `description` VARCHAR(500) NULL,
-  `is_recepted` TINYINT NOT NULL DEFAULT 0,
+  `is_prescribed` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
 ENGINE = InnoDB;

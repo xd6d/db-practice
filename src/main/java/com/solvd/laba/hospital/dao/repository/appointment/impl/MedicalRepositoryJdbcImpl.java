@@ -15,7 +15,7 @@ public class MedicalRepositoryJdbcImpl implements MedicalRepository {
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
-    public Service create(Service medicalService) {
+    public void create(Service medicalService) {
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, medicalService.getName());
@@ -32,6 +32,5 @@ public class MedicalRepositoryJdbcImpl implements MedicalRepository {
         } finally {
             connectionPool.releaseConnection(connection);
         }
-        return medicalService;
     }
 }

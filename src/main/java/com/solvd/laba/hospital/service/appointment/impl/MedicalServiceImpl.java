@@ -1,7 +1,7 @@
 package com.solvd.laba.hospital.service.appointment.impl;
 
 import com.solvd.laba.hospital.dao.repository.appointment.MedicalRepository;
-import com.solvd.laba.hospital.dao.repository.appointment.impl.MedicalRepositoryJdbcImpl;
+import com.solvd.laba.hospital.dao.repository.appointment.impl.MedicalRepositoryMybatisImpl;
 import com.solvd.laba.hospital.model.appointment.Service;
 import com.solvd.laba.hospital.model.exceptions.IncorrectServiceException;
 import com.solvd.laba.hospital.service.appointment.MedicalService;
@@ -10,7 +10,8 @@ import org.apache.logging.log4j.Logger;
 
 public class MedicalServiceImpl implements MedicalService {
     private final static Logger LOGGER = LogManager.getLogger(MedicalServiceImpl.class);
-    private final MedicalRepository medicalRepository = new MedicalRepositoryJdbcImpl();
+    private final MedicalRepository medicalRepository = new MedicalRepositoryMybatisImpl();
+//    private final MedicalRepository medicalRepository = new MedicalRepositoryJdbcImpl();
 
     @Override
     public Service create(Service service) {

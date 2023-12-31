@@ -10,12 +10,12 @@ import java.sql.*;
 
 public class MedicineRepositoryJdbcImpl implements MedicineRepository {
     private static final Logger LOGGER = LogManager.getLogger(MedicineRepositoryJdbcImpl.class);
-    private static final String CREATE = "INSERT INTO medicines(name, price, description, is_recepted) VALUES (?, ?, ?, ?);";
+    private static final String CREATE = "INSERT INTO medicines(name, price, description, is_prescribed) VALUES (?, ?, ?, ?);";
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
-    public Medicine create(Medicine medicine) {
+    public void create(Medicine medicine) {
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, medicine.getName());
@@ -33,6 +33,5 @@ public class MedicineRepositoryJdbcImpl implements MedicineRepository {
         } finally {
             connectionPool.releaseConnection(connection);
         }
-        return medicine;
     }
 }

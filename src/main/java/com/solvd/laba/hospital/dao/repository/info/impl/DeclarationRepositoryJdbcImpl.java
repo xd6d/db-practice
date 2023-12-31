@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.Optional;
 
 public class DeclarationRepositoryJdbcImpl implements DeclarationRepository {
-    private static final Logger LOGGER = LogManager.getLogger(DeclarationRepositoryImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(DeclarationRepositoryJdbcImpl.class);
     private static final String CREATE = "INSERT INTO declarations(doctor_id, created, expires, patient_id) VALUES (?, ?, ?, ?);";
     private static final String FIND_DECLARATION_BY_ID = "SELECT * FROM declarations WHERE patient_id = ? ;";
     private static final String UPDATE = "UPDATE declarations SET expires = ? WHERE id = ?;";

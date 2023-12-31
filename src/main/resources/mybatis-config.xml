@@ -23,9 +23,17 @@
     </environments>
 
     <mappers>
+        <mapper resource="mappers/appointment/MedicineMapper.xml"/>
+        <mapper resource="mappers/appointment/ServiceMapper.xml"/>
+        <mapper resource="mappers/appointment/ConclusionMapper.xml"/>
+        <mapper resource="mappers/appointment/ConclusionMedicineMapper.xml"/>
+        <mapper resource="mappers/appointment/AppointmentMapper.xml"/>
+        <mapper resource="mappers/appointment/AppointmentServiceMapper.xml"/>
+
         <mapper resource="mappers/person/PersonMapper.xml"/>
         <mapper resource="mappers/person/PatientMapper.xml"/>
         <mapper resource="mappers/person/EmployeeMapper.xml"/>
+
         <mapper resource="mappers/info/AnalysisMapper.xml"/>
         <mapper resource="mappers/info/HospitalizationMapper.xml"/>
         <mapper resource="mappers/info/VaccinationMapper.xml"/>

@@ -8,8 +8,8 @@
     </insert>
 
     <sql id="select-patients">
-        SELECT p.*, a.id as a_id, a.name as a_name, a.value as a_value, a.unit as a_unit, a.healthy_value as a_healthy_value FROM patients p
-        LEFT JOIN analyses a ON p.id = a.patient_id
+        SELECT * FROM patients p
+
     </sql>
 
     <select id="findById" resultMap="patientResultMap">
@@ -32,8 +32,6 @@
 
     <resultMap id="patientResultMap" type="com.solvd.laba.hospital.model.person.PatientPerson"
                extends="com.solvd.laba.hospital.dao.repository.person.personResultMap">
-        <collection property="analyses" columnPrefix="a_"
-                    resultMap="com.solvd.laba.hospital.dao.repository.info.AnalysisRepository.analysisResultMap"/>
     </resultMap>
 
 </mapper>

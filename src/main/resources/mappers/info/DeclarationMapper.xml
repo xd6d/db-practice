@@ -4,12 +4,17 @@
 <mapper namespace="com.solvd.laba.hospital.dao.repository.info.DeclarationRepository">
 
     <select id="findByPatientId" resultMap="declarationResultMap">
-        SELECT * FROM declarations WHERE patient_id = #{id}
+        SELECT d.*,
+            e.id as e_id, e.name as e_name, e.surname as e_surname, e.phone_number as e_phone_number,
+            e.email as e_email, e.degree as e_degree, e.position_name as e_position_name
+        FROM declarations d
+        LEFT JOIN employees e ON e.id = d.doctor_id
+        WHERE d.patient_id = #{id}
     </select>
 
     <insert id="create" keyColumn="id" keyProperty="declaration.id" useGeneratedKeys="true">
-        INSERT INTO declarations(doctor_id, created, expires)
-        VALUES (#{declaration.doctor.id}, #{declaration.created}, #{declaration.expires})
+        INSERT INTO declarations(doctor_id, created, expires, patient_id)
+        VALUES (#{declaration.doctor.id}, #{declaration.created}, #{declaration.expires}, #{patientId})
     </insert>
 
     <update id="update">
@@ -20,10 +25,11 @@
         DELETE FROM declarations WHERE id = #{id}
     </delete>
 
-    <resultMap id="declarationResultMap" type="com.solvd.laba.hospital.model.info.Declaration" autoMapping="false">
+    <resultMap id="declarationResultMap" type="com.solvd.laba.hospital.model.info.Declaration">
         <id column="id" property="id"/>
         <result column="created" property="created"/>
         <result column="expires" property="expires"/>
-        <association property="doctor" resultMap="com.solvd.laba.hospital.dao.repository.person.EmployeeRepository.employeeResultMap"/>
+        <association property="doctor" columnPrefix="e_"
+                     resultMap="com.solvd.laba.hospital.dao.repository.person.EmployeeRepository.employeeResultMap"/>
     </resultMap>
 </mapper>
