@@ -1,7 +1,7 @@
 package com.solvd.laba.hospital.service.info.impl;
 
 import com.solvd.laba.hospital.dao.repository.info.AnalysisRepository;
-import com.solvd.laba.hospital.dao.repository.info.impl.AnalysisRepositoryImpl;
+import com.solvd.laba.hospital.dao.repository.info.impl.AnalysisRepositoryMybatisImpl;
 import com.solvd.laba.hospital.model.exceptions.IncorrectAnalysisException;
 import com.solvd.laba.hospital.model.exceptions.IncorrectInfoException;
 import com.solvd.laba.hospital.model.info.Analysis;
@@ -13,7 +13,8 @@ import java.util.List;
 
 public class AnalysisServiceImpl extends InfoService implements AnalysisService {
     private static final Logger LOGGER = LogManager.getLogger(AnalysisServiceImpl.class);
-    private final AnalysisRepository analysisRepository = new AnalysisRepositoryImpl();
+    private final AnalysisRepository analysisRepository = new AnalysisRepositoryMybatisImpl();
+//    private final AnalysisRepository analysisRepository = new AnalysisRepositoryJdbcImpl();
 
     @Override
     public List<Analysis> getAllByPatientId(long id) {

@@ -10,8 +10,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnalysisRepositoryImpl implements AnalysisRepository {
-    private static final Logger LOGGER = LogManager.getLogger(AnalysisRepositoryImpl.class);
+public class AnalysisRepositoryJdbcImpl implements AnalysisRepository {
+    private static final Logger LOGGER = LogManager.getLogger(AnalysisRepositoryJdbcImpl.class);
     private static final String CREATE = "INSERT INTO analyses(name, value, unit, healthy_value, patient_id) VALUES (?, ?, ?, ?, ?);";
     private static final String FIND_ALL_BY_PATIENT_ID = "SELECT * FROM analyses WHERE patient_id = ?;";
     private static final String UPDATE = "UPDATE analyses SET name = ?, value = ?, unit = ?, healthy_value = ? WHERE id = ?;";
@@ -20,7 +20,7 @@ public class AnalysisRepositoryImpl implements AnalysisRepository {
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
-    public Analysis create(Analysis analysis, long patientId) {
+    public void create(Analysis analysis, long patientId) {
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, analysis.getName());
@@ -39,7 +39,6 @@ public class AnalysisRepositoryImpl implements AnalysisRepository {
         } finally {
             connectionPool.releaseConnection(connection);
         }
-        return analysis;
     }
 
     @Override

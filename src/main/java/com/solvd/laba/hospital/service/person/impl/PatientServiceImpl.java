@@ -1,7 +1,7 @@
 package com.solvd.laba.hospital.service.person.impl;
 
 import com.solvd.laba.hospital.dao.repository.person.PatientRepository;
-import com.solvd.laba.hospital.dao.repository.person.impl.PatientRepositoryImpl;
+import com.solvd.laba.hospital.dao.repository.person.impl.PatientRepositoryMybatisImpl;
 import com.solvd.laba.hospital.model.exceptions.IncorrectPersonException;
 import com.solvd.laba.hospital.model.person.PatientPerson;
 import com.solvd.laba.hospital.service.info.*;
@@ -24,7 +24,8 @@ public class PatientServiceImpl extends PersonService implements PatientService 
     private final DeclarationService declarationService;
 
     public PatientServiceImpl() {
-        this.patientRepository = new PatientRepositoryImpl();
+        this.patientRepository = new PatientRepositoryMybatisImpl();
+//        this.patientRepository = new PatientRepositoryJdbcImpl();
         this.analysisService = new AnalysisServiceImpl();
         this.hospitalizationService = new HospitalizationServiceImpl();
         this.vaccinationService = new VaccinationServiceImpl();

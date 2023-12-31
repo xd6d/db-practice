@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PatientRepository {
-    PatientPerson create(PatientPerson patient);
+    void create(PatientPerson patient);
 
     List<PatientPerson> findAll();
 

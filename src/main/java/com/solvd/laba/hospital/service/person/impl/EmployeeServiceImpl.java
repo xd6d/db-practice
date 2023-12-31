@@ -1,7 +1,7 @@
 package com.solvd.laba.hospital.service.person.impl;
 
 import com.solvd.laba.hospital.dao.repository.person.EmployeeRepository;
-import com.solvd.laba.hospital.dao.repository.person.impl.EmployeeRepositoryImpl;
+import com.solvd.laba.hospital.dao.repository.person.impl.EmployeeRepositoryMybatisImpl;
 import com.solvd.laba.hospital.model.exceptions.IncorrectEmployeeException;
 import com.solvd.laba.hospital.model.exceptions.IncorrectPersonException;
 import com.solvd.laba.hospital.model.person.EmployeePerson;
@@ -17,7 +17,8 @@ public class EmployeeServiceImpl extends PersonService implements EmployeeServic
     private final EmployeeRepository employeeRepository;
 
     public EmployeeServiceImpl() {
-        this.employeeRepository = new EmployeeRepositoryImpl();
+        this.employeeRepository = new EmployeeRepositoryMybatisImpl();
+//        this.employeeRepository = new EmployeeRepositoryJdbcImpl();
     }
 
     @Override

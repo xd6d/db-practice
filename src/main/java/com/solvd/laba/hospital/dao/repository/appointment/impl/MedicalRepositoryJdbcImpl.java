@@ -8,14 +8,14 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
-public class MedicalRepositoryImpl implements MedicalRepository {
-    private static final Logger LOGGER = LogManager.getLogger(MedicalRepositoryImpl.class);
+public class MedicalRepositoryJdbcImpl implements MedicalRepository {
+    private static final Logger LOGGER = LogManager.getLogger(MedicalRepositoryJdbcImpl.class);
     private static final String CREATE = "INSERT INTO services(name, price, description) VALUES (?, ?, ?);";
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
-    public Service create(Service medicalService) {
+    public void create(Service medicalService) {
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, medicalService.getName());
@@ -32,6 +32,5 @@ public class MedicalRepositoryImpl implements MedicalRepository {
         } finally {
             connectionPool.releaseConnection(connection);
         }
-        return medicalService;
     }
 }

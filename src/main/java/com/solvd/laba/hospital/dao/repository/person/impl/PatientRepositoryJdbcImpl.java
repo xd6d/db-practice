@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class PatientRepositoryImpl implements PatientRepository {
-    private static final Logger LOGGER = LogManager.getLogger(PatientRepositoryImpl.class);
+public class PatientRepositoryJdbcImpl implements PatientRepository {
+    private static final Logger LOGGER = LogManager.getLogger(PatientRepositoryJdbcImpl.class);
     private static final String CREATE = "INSERT INTO patients(name, surname, phone_number, email) VALUES (?, ?, ?, ?);";
     private static final String FIND_ALL = "SELECT * FROM patients;";
     private static final String FIND_BY_ID = "SELECT * FROM patients WHERE id = ?;";
@@ -22,7 +22,7 @@ public class PatientRepositoryImpl implements PatientRepository {
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
-    public PatientPerson create(PatientPerson patient) {
+    public void create(PatientPerson patient) {
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, patient.getName());
@@ -40,7 +40,6 @@ public class PatientRepositoryImpl implements PatientRepository {
         } finally {
             connectionPool.releaseConnection(connection);
         }
-        return patient;
     }
 
     @Override

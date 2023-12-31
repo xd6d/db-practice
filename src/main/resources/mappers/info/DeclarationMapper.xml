@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.laba.hospital.dao.repository.info.DeclarationRepository">
+
+    <select id="findByPatientId" resultMap="declarationResultMap">
+        SELECT d.*,
+            e.id as e_id, e.name as e_name, e.surname as e_surname, e.phone_number as e_phone_number,
+            e.email as e_email, e.degree as e_degree, e.position_name as e_position_name
+        FROM declarations d
+        LEFT JOIN employees e ON e.id = d.doctor_id
+        WHERE d.patient_id = #{id}
+    </select>
+
+    <insert id="create" keyColumn="id" keyProperty="declaration.id" useGeneratedKeys="true">
+        INSERT INTO declarations(doctor_id, created, expires, patient_id)
+        VALUES (#{declaration.doctor.id}, #{declaration.created}, #{declaration.expires}, #{patientId})
+    </insert>
+
+    <update id="update">
+        UPDATE declarations SET expires = #{expires} WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM declarations WHERE id = #{id}
+    </delete>
+
+    <resultMap id="declarationResultMap" type="com.solvd.laba.hospital.model.info.Declaration">
+        <id column="id" property="id"/>
+        <result column="created" property="created"/>
+        <result column="expires" property="expires"/>
+        <association property="doctor" columnPrefix="e_"
+                     resultMap="com.solvd.laba.hospital.dao.repository.person.EmployeeRepository.employeeResultMap"/>
+    </resultMap>
+</mapper>

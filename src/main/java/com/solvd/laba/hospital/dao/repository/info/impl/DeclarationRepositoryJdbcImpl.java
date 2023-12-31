@@ -9,8 +9,8 @@ import org.apache.logging.log4j.Logger;
 import java.sql.*;
 import java.util.Optional;
 
-public class DeclarationRepositoryImpl implements DeclarationRepository {
-    private static final Logger LOGGER = LogManager.getLogger(DeclarationRepositoryImpl.class);
+public class DeclarationRepositoryJdbcImpl implements DeclarationRepository {
+    private static final Logger LOGGER = LogManager.getLogger(DeclarationRepositoryJdbcImpl.class);
     private static final String CREATE = "INSERT INTO declarations(doctor_id, created, expires, patient_id) VALUES (?, ?, ?, ?);";
     private static final String FIND_DECLARATION_BY_ID = "SELECT * FROM declarations WHERE patient_id = ? ;";
     private static final String UPDATE = "UPDATE declarations SET expires = ? WHERE id = ?;";
@@ -19,7 +19,7 @@ public class DeclarationRepositoryImpl implements DeclarationRepository {
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
-    public Declaration create(Declaration declaration, long patientId) {
+    public void create(Declaration declaration, long patientId) {
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement create = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -38,7 +38,6 @@ public class DeclarationRepositoryImpl implements DeclarationRepository {
         } finally {
             connectionPool.releaseConnection(connection);
         }
-        return declaration;
     }
 
     @Override

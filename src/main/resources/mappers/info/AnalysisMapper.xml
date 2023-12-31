@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.laba.hospital.dao.repository.info.AnalysisRepository">
+
+    <select id="findAllByPatientId" resultMap="analysisResultMap">
+        SELECT * FROM analyses WHERE patient_id = #{id}
+    </select>
+
+    <insert id="create" keyColumn="id" keyProperty="analysis.id" useGeneratedKeys="true">
+        INSERT INTO analyses(name, value, unit, healthy_value, patient_id)
+        VALUES (#{analysis.name}, #{analysis.value}, #{analysis.unit}, #{analysis.healthyValue}, #{patientId})
+    </insert>
+
+    <update id="update">
+        UPDATE analyses SET name = #{name}, value = #{value}, unit = #{unit}, healthy_value = #{healthyValue} WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM analyses WHERE id = #{id}
+    </delete>
+
+    <resultMap id="analysisResultMap" type="com.solvd.laba.hospital.model.info.Analysis" autoMapping="false">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="value" property="value"/>
+        <result column="unit" property="unit"/>
+        <result column="healthy_value" property="healthyValue"/>
+    </resultMap>
+</mapper>

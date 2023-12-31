@@ -10,8 +10,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllergyRepositoryImpl implements AllergyRepository {
-    private static final Logger LOGGER = LogManager.getLogger(AllergyRepositoryImpl.class);
+public class AllergyRepositoryJdbcImpl implements AllergyRepository {
+    private static final Logger LOGGER = LogManager.getLogger(AllergyRepositoryJdbcImpl.class);
     private static final String CREATE = "INSERT INTO allergies(name, patient_id) VALUES (?, ?);";
     private static final String FIND_ALL_BY_PATIENT_ID = "SELECT * FROM allergies WHERE patient_id = ?;";
 
@@ -40,7 +40,7 @@ public class AllergyRepositoryImpl implements AllergyRepository {
     }
 
     @Override
-    public Allergy create(Allergy allergy, long patientId) {
+    public void create(Allergy allergy, long patientId) {
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, allergy.getName());
@@ -56,6 +56,5 @@ public class AllergyRepositoryImpl implements AllergyRepository {
         } finally {
             connectionPool.releaseConnection(connection);
         }
-        return allergy;
     }
 }

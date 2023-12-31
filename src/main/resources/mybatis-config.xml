@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <properties resource="config.properties"/>
+
+    <typeHandlers>
+        <typeHandler handler="com.solvd.laba.hospital.dao.repository.person.impl.PositionTypeHandler"/>
+    </typeHandlers>
+
+    <environments default="development">
+    <environment id="development">
+        <transactionManager type="JDBC"/>
+        <dataSource type="POOLED">
+            <property name="driver" value="${driver}"/>
+            <property name="url" value="${url}"/>
+            <property name="username" value="${username}"/>
+            <property name="password" value="${password}"/>
+        </dataSource>
+    </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mappers/appointment/MedicineMapper.xml"/>
+        <mapper resource="mappers/appointment/ServiceMapper.xml"/>
+        <mapper resource="mappers/appointment/ConclusionMapper.xml"/>
+        <mapper resource="mappers/appointment/ConclusionMedicineMapper.xml"/>
+        <mapper resource="mappers/appointment/AppointmentMapper.xml"/>
+        <mapper resource="mappers/appointment/AppointmentServiceMapper.xml"/>
+
+        <mapper resource="mappers/person/PersonMapper.xml"/>
+        <mapper resource="mappers/person/PatientMapper.xml"/>
+        <mapper resource="mappers/person/EmployeeMapper.xml"/>
+
+        <mapper resource="mappers/info/AnalysisMapper.xml"/>
+        <mapper resource="mappers/info/HospitalizationMapper.xml"/>
+        <mapper resource="mappers/info/VaccinationMapper.xml"/>
+        <mapper resource="mappers/info/AllergyMapper.xml"/>
+        <mapper resource="mappers/info/DeclarationMapper.xml"/>
+    </mappers>
+
+
+</configuration>

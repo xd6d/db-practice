@@ -1,7 +1,7 @@
 package com.solvd.laba.hospital.service.info.impl;
 
 import com.solvd.laba.hospital.dao.repository.info.DeclarationRepository;
-import com.solvd.laba.hospital.dao.repository.info.impl.DeclarationRepositoryImpl;
+import com.solvd.laba.hospital.dao.repository.info.impl.DeclarationRepositoryMybatisImpl;
 import com.solvd.laba.hospital.model.exceptions.IncorrectDeclarationException;
 import com.solvd.laba.hospital.model.exceptions.IncorrectInfoException;
 import com.solvd.laba.hospital.model.info.Declaration;
@@ -13,7 +13,8 @@ import java.util.Date;
 
 public class DeclarationServiceImpl extends InfoService implements DeclarationService {
     private static final Logger LOGGER = LogManager.getLogger(DeclarationServiceImpl.class);
-    private final DeclarationRepository declarationRepository = new DeclarationRepositoryImpl();
+    private final DeclarationRepository declarationRepository = new DeclarationRepositoryMybatisImpl();
+//    private final DeclarationRepository declarationRepository = new DeclarationRepositoryJdbcImpl();
 
     @Override
     public Declaration getByPatientId(long id) {
