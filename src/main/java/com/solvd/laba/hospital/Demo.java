@@ -25,12 +25,15 @@ import com.solvd.laba.hospital.service.person.PatientService;
 import com.solvd.laba.hospital.service.person.impl.EmployeeServiceImpl;
 import com.solvd.laba.hospital.service.person.impl.PatientServiceImpl;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Demo {
+    private static final Logger LOGGER = LogManager.getLogger(Demo.class);
 
     public static void main(String[] args) {
         SqlSession session = Config.getSessionFactory().openSession(true);
@@ -78,7 +81,7 @@ public class Demo {
         medicine.setDescription("asd");
         medicine.setPrescribed(true);
 //        session.getMapper(MedicineRepository.class).create(medicine);
-//        System.out.println(medicine);
+//        LOGGER.info(medicine);
 
         //SERVICE TESTS
         EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
@@ -90,7 +93,7 @@ public class Demo {
         employeePerson.setDegree("d1");
         employeePerson.setPosition(Position.DOCTOR);
 //        employeeService.add(employeePerson);
-//        System.out.println(employeePerson);
+//        LOGGER.info(employeePerson);
         employeePerson.setId(3);
 
         PatientService patientService = new PatientServiceImpl();
@@ -100,7 +103,7 @@ public class Demo {
         p.setPhoneNumber("p1");
         p.setEmail("p1");
 //        patientService.add(p);
-//        System.out.println(p);
+//        LOGGER.info(p);
         p.setId(3);
 
         DeclarationService declarationService = new DeclarationServiceImpl();
@@ -109,7 +112,7 @@ public class Demo {
         d.setExpires(new Date(System.currentTimeMillis() + 5_000_000_000L));
         d.setDoctor(employeePerson);
 //        declarationService.add(d, 3);
-//        System.out.println(d);
+//        LOGGER.info(d);
 
         AnalysisService analysisService = new AnalysisServiceImpl();
         Analysis an = new Analysis();
@@ -118,7 +121,7 @@ public class Demo {
         an.setUnit("qwe");
         an.setHealthyValue("qwe");
 //        analysisService.add(an, 3);
-//        System.out.println(an);
+//        LOGGER.info(an);
 
         VaccinationService vaccinationService = new VaccinationServiceImpl();
         Vaccination vac = new Vaccination();
@@ -126,13 +129,13 @@ public class Demo {
         vac.setDate(new Date());
         vac.setExpires(new Date(System.currentTimeMillis() + 2_000_000_000));
 //        vaccinationService.add(vac, 3);
-//        System.out.println(vac);
+//        LOGGER.info(vac);
 
         AllergyService allergyService = new AllergyServiceImpl();
         Allergy al = new Allergy();
         al.setName("ale");
 //        allergyService.add(al, 3);
-//        System.out.println(al);
+//        LOGGER.info(al);
 
         HospitalizationService hospitalizationService = new HospitalizationServiceImpl();
         Hospitalization hospitalization = new Hospitalization();
@@ -141,7 +144,7 @@ public class Demo {
         hospitalization.setCondition("good");
         hospitalization.setDescription("smth");
 //        hospitalizationService.add(hospitalization, 3);
-//        System.out.println(hospitalization);
+//        LOGGER.info(hospitalization);
 
         MedicalService medicalService = new MedicalServiceImpl();
         Service service1 = new Service();
@@ -149,7 +152,7 @@ public class Demo {
         service1.setPrice(15);
         service1.setDescription("some");
 //        medicalService.create(service1);
-//        System.out.println(service1);
+//        LOGGER.info(service1);
         service1.setId(5);
 
         AppointmentService appointmentService = new AppointmentServiceImpl();
@@ -161,11 +164,11 @@ public class Demo {
         services1.add(service1);
         appointment.setServices(services1);
 //        appointmentService.add(appointment);
-//        System.out.println(appointment);
+//        LOGGER.info(appointment);
 
         MedicineService medicineService = new MedicineServiceImpl();
 //        medicineService.create(medicine);
-//        System.out.println(medicine);
+//        LOGGER.info(medicine);
 
         ConclusionService conclusionService = new ConclusionServiceImpl();
         Conclusion conclusion1 = new Conclusion();
@@ -175,6 +178,8 @@ public class Demo {
         conclusion1.setMedicines(medicines);
         conclusionService.create(conclusion1, 12);
 
-//        System.out.println(patientService.getById(3));
+        LOGGER.info(patientService.getById(3));
+        patientService.getAll().forEach(LOGGER::info);
+        employeeService.getAll().forEach(LOGGER::info);
     }
 }

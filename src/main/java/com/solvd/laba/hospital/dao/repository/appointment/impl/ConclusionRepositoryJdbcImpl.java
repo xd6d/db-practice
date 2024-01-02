@@ -13,6 +13,7 @@ public class ConclusionRepositoryJdbcImpl implements ConclusionRepository {
     private static final Logger LOGGER = LogManager.getLogger(ConclusionRepositoryJdbcImpl.class);
     private static final String CREATE = "INSERT INTO conclusions(complaint, medical_history, observation, diagnosis, recommendation, appointment_id) VALUES (?, ?, ?, ?, ?, ?);";
     private static final String SAVE_MEDICINES = "INSERT INTO conclusion_medicines(conclusion_id, medicine_id) VALUES (?, ?);";
+    private static final String EXISTS_BY_ID = "SELECT * FROM conclusions WHERE appointment_id = ?;";
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -57,5 +58,22 @@ public class ConclusionRepositoryJdbcImpl implements ConclusionRepository {
             }
             connectionPool.releaseConnection(connection);
         }
+    }
+
+    @Override
+    public boolean existsByAppointmentId(long appointmentId) {
+        boolean exists = false;
+        Connection connection = connectionPool.getConnection();
+        try (PreparedStatement ps = connection.prepareStatement(EXISTS_BY_ID)) {
+            ps.setLong(1, appointmentId);
+
+            ResultSet rs = ps.executeQuery();
+            exists = rs.next();
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+        return exists;
     }
 }

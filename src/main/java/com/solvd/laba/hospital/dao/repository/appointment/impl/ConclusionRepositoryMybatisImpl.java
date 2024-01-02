@@ -15,4 +15,12 @@ public class ConclusionRepositoryMybatisImpl implements ConclusionRepository {
             session.getMapper(ConclusionMedicineMapper.class).create(conclusion.getMedicines(), conclusion.getId());
         }
     }
+
+    @Override
+    public boolean existsByAppointmentId(long appointmentId) {
+        try (SqlSession session = Config.getSessionFactory().openSession(true)) {
+            ConclusionRepository conclusionRepository = session.getMapper(ConclusionRepository.class);
+            return conclusionRepository.existsByAppointmentId(appointmentId);
+        }
+    }
 }
