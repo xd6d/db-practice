@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 public class ConclusionServiceImpl implements ConclusionService {
     private final static Logger LOGGER = LogManager.getLogger(ConclusionServiceImpl.class);
     private final ConclusionRepository conclusionRepository = new ConclusionRepositoryMybatisImpl();
-    //    private final ConclusionRepository conclusionRepository = new ConclusionRepositoryJdbcImpl();
+    //        private final ConclusionRepository conclusionRepository = new ConclusionRepositoryJdbcImpl();
     private final AppointmentService appointmentService = new AppointmentServiceImpl();
 
     @Override
@@ -26,9 +26,18 @@ public class ConclusionServiceImpl implements ConclusionService {
         return conclusion;
     }
 
+    @Override
+    public boolean existsByAppointmentId(long appointmentId) {
+        return conclusionRepository.existsByAppointmentId(appointmentId);
+    }
+
     private void validate(long appointmentId) throws IncorrectAppointmentException {
         if (!appointmentService.existsById(appointmentId)) {
             throw new IncorrectAppointmentException("Appointment with given id does not exist");
+        }
+        if (existsByAppointmentId(appointmentId)) {
+            throw new IncorrectAppointmentException(
+                    "Conclusion to the appointment with id %d already exists".formatted(appointmentId));
         }
     }
 }

@@ -4,4 +4,6 @@ import com.solvd.laba.hospital.model.appointment.Conclusion;
 
 public interface ConclusionService {
     Conclusion create(Conclusion conclusion, long appointmentId);
+
+    boolean existsByAppointmentId(long appointmentId);
 }

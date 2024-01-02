@@ -3,6 +3,10 @@
 
 <mapper namespace="com.solvd.laba.hospital.dao.repository.appointment.ConclusionRepository">
 
+    <select id="existsByAppointmentId">
+        SELECT EXISTS(SELECT 1 FROM conclusions WHERE appointment_id=#{id})
+    </select>
+
     <insert id="create" keyColumn="id" keyProperty="conclusion.id" useGeneratedKeys="true">
         INSERT INTO conclusions(complaint, medical_history, observation, diagnosis, recommendation, appointment_id)
         VALUES (#{conclusion.complaint}, #{conclusion.medicalHistory}, #{conclusion.observation},

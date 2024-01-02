@@ -9,7 +9,6 @@
 
     <sql id="select-patients">
         SELECT * FROM patients p
-
     </sql>
 
     <select id="findById" resultMap="patientResultMap">

@@ -10,6 +10,8 @@
         FROM declarations d
         LEFT JOIN employees e ON e.id = d.doctor_id
         WHERE d.patient_id = #{id}
+        ORDER BY d.id desc
+        LIMIT 1
     </select>
 
     <insert id="create" keyColumn="id" keyProperty="declaration.id" useGeneratedKeys="true">
