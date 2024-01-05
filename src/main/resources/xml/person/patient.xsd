@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:include schemaLocation="person.xsd"/>
+    <xs:include schemaLocation="../info/declaration.xsd"/>
+    <xs:include schemaLocation="../info/analysis.xsd"/>
+    <xs:include schemaLocation="../info/vaccination.xsd"/>
+    <xs:include schemaLocation="../info/hospitalization.xsd"/>
+    <xs:include schemaLocation="../info/allergy.xsd"/>
+
+    <xs:element name="patient" type="patientType">
+
+    </xs:element>
+
+    <xs:complexType name="patientType">
+        <xs:complexContent>
+            <xs:extension base="personType">
+                <xs:sequence>
+                    <xs:element type="declarationType" name="declaration" nillable="true" minOccurs="0"/>
+                    <xs:element type="analysesType" name="analyses" nillable="true" minOccurs="0"/>
+                    <xs:element type="vaccinationsType" name="vaccinations" nillable="true" minOccurs="0"/>
+                    <xs:element type="hospitalizationsType" name="hospitalizations" nillable="true" minOccurs="0"/>
+                    <xs:element type="allergiesType" name="allergies" nillable="true" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="analysesType">
+        <xs:sequence>
+            <xs:element name="analysis" type="analysisType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="vaccinationsType">
+        <xs:sequence>
+            <xs:element name="vaccination" type="vaccinationType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="hospitalizationsType">
+        <xs:sequence>
+            <xs:element name="hospitalization" type="hospitalizationType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="allergiesType">
+        <xs:sequence>
+            <xs:element name="allergy" type="allergyType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

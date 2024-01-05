@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<declaration id="12"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:noNamespaceSchemaLocation="declaration.xsd">
+    <doctor id="123">
+        <name>John</name>
+        <surname>Davidson</surname>
+        <phoneNumber>+12345678</phoneNumber>
+        <email>davidson@mail.com</email>
+        <degree>1st degree</degree>
+        <position>Doctor</position>
+    </doctor>
+    <created>2023-01-12</created>
+    <expires>2025-02-01</expires>
+</declaration>
