@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysis id="23"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="analysis.xsd">
+    <name>Covid-19</name>
+    <value>Negative</value>
+    <unit>Positive/Negative</unit>
+    <healthyValue>Negative</healthyValue>
+</analysis>

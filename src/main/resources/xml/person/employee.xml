@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<employee id="123"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="employee.xsd">
+    <name>John</name>
+    <surname>Davidson</surname>
+    <phoneNumber>+12345678</phoneNumber>
+    <email>davidson@mail.com</email>
+    <degree>1st degree</degree>
+    <position>Doctor</position>
+</employee>

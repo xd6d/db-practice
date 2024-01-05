@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patient id="11"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="patient.xsd">
+    <name>Victor</name>
+    <surname>Schevchenko</surname>
+    <phoneNumber>+32456789</phoneNumber>
+    <email>schevchenko@mail.com</email>
+        <declaration id="12">
+        <doctor id="123">
+            <name>John</name>
+            <surname>Davidson</surname>
+            <phoneNumber>+12345678</phoneNumber>
+            <email>davidson@mail.com</email>
+            <degree>1st degree</degree>
+            <position>Doctor</position>
+        </doctor>
+        <created>2023-01-12</created>
+        <expires>2025-02-01</expires>
+    </declaration>
+    <analyses>
+        <analysis id="23">
+            <name>Covid-19</name>
+            <value>Negative</value>
+            <unit>Positive/Negative</unit>
+            <healthyValue>Negative</healthyValue>
+        </analysis>
+        <analysis id="34">
+            <name>Vitamin D</name>
+            <value>25</value>
+            <unit>ng/ml</unit>
+            <healthyValue>30-70</healthyValue>
+        </analysis>
+    </analyses>
+    <vaccinations>
+        <vaccination id="1">
+            <name>coronavac</name>
+            <date>2023-02-02</date>
+            <expires>2024-02-02</expires>
+        </vaccination>
+    </vaccinations>
+    <allergies>
+        <allergy id="9">
+            <name>gluten</name>
+        </allergy>
+        <allergy id="10">
+            <name>fish</name>
+        </allergy>
+        <allergy id="11">
+            <name>peanuts</name>
+        </allergy>
+    </allergies>
+</patient>

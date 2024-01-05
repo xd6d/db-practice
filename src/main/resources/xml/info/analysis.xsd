@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="analysis" type="analysisType"/>
+
+    <xs:complexType name="analysisType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="name"/>
+            <xs:element type="xs:string" name="value"/>
+            <xs:element type="xs:string" name="unit"/>
+            <xs:element type="xs:string" name="healthyValue"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:long" use="required"/>
+    </xs:complexType>
+</xs:schema>
