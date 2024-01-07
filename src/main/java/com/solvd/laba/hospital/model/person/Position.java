@@ -1,12 +1,16 @@
 package com.solvd.laba.hospital.model.person;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlEnumValue;
 import lombok.Getter;
 
 @Getter
+@XmlAccessorType(XmlAccessType.FIELD)
 public enum Position {
-    RECEPTIONIST("Receptionist", false),
-    DOCTOR("Doctor", true),
-    NURSE("Nurse", false);
+    @XmlEnumValue("Receptionist") RECEPTIONIST("Receptionist", false),
+    @XmlEnumValue("Doctor") DOCTOR("Doctor", true),
+    @XmlEnumValue("Nurse") NURSE("Nurse", false);
 
     private final String name;
     private final boolean isDoctor;
