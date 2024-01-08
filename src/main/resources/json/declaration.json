@@ -1,0 +1,14 @@
+{
+  "id": 12,
+  "doctor": {
+    "id": 123,
+    "name": "Anastasia",
+    "surname": "Green",
+    "phoneNumber": "+98765432",
+    "email": "green@mail.com",
+    "degree": "1st degree",
+    "position": "Doctor"
+  },
+  "created": "2023-01-12",
+  "expires": "2025-02-01"
+}

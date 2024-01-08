@@ -1,0 +1,59 @@
+{
+  "id": 1,
+  "name": "Victor",
+  "surname": "Schevchenko",
+  "phoneNumber": "+123123123",
+  "email": "schenchenko@mail.com",
+  "declaration": {
+    "id": 12,
+    "doctor": {
+      "id": 123,
+      "name": "Anastasia",
+      "surname": "Green",
+      "phoneNumber": "+98765432",
+      "email": "green@mail.com",
+      "degree": "1st degree",
+      "position": "Doctor"
+    },
+    "created": "2023-01-12",
+    "expires": "2025-02-01"
+  },
+  "analyses": [
+    {
+      "id": 23,
+      "name": "Covid-19",
+      "value": "Negative",
+      "unit": "Positive/Negative",
+      "healthyValue": "Negative"
+    },
+    {
+      "id": 34,
+      "name": "Vitamin D",
+      "value": "25",
+      "unit": "ng/ml",
+      "healthyValue": "30-70"
+    }
+  ],
+  "vaccinations": [
+    {
+      "id": 1,
+      "name": "coronavac",
+      "date": "2023-02-02",
+      "expires": "2024-02-02"
+    }
+  ],
+  "allergies": [
+    {
+      "id": 3,
+      "name": "gluten"
+    },
+    {
+      "id": 4,
+      "name": "fish"
+    },
+    {
+      "id": 5,
+      "name": "peanuts"
+    }
+  ]
+}

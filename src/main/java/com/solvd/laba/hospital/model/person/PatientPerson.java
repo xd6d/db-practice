@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -12,8 +13,8 @@ import java.util.List;
 @ToString(callSuper = true)
 public class PatientPerson extends Person {
     private Declaration declaration;
-    private List<Analysis> analyses;
-    private List<Vaccination> vaccinations;
-    private List<Hospitalization> hospitalizations;
-    private List<Allergy> allergies;
+    private List<Analysis> analyses = new ArrayList<>();
+    private List<Vaccination> vaccinations = new ArrayList<>();
+    private List<Hospitalization> hospitalizations = new ArrayList<>();
+    private List<Allergy> allergies = new ArrayList<>();
 }

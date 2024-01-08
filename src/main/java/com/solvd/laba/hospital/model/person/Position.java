@@ -1,12 +1,13 @@
 package com.solvd.laba.hospital.model.person;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
 public enum Position {
-    RECEPTIONIST("Receptionist", false),
-    DOCTOR("Doctor", true),
-    NURSE("Nurse", false);
+    @JsonProperty("Receptionist") RECEPTIONIST("Receptionist", false),
+    @JsonProperty("Doctor") DOCTOR("Doctor", true),
+    @JsonProperty("Nurse") NURSE("Nurse", false);
 
     private final String name;
     private final boolean isDoctor;
