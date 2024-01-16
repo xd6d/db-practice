@@ -1,7 +1,7 @@
 package com.solvd.laba.hospital.service.person.impl;
 
-import com.solvd.laba.hospital.dao.repository.person.PatientRepository;
-import com.solvd.laba.hospital.dao.repository.person.impl.PatientRepositoryMybatisImpl;
+import com.solvd.laba.hospital.dao.repository.AbstractRepositoryFactory;
+import com.solvd.laba.hospital.dao.repository.Repository;
 import com.solvd.laba.hospital.model.exceptions.IncorrectPersonException;
 import com.solvd.laba.hospital.model.person.PatientPerson;
 import com.solvd.laba.hospital.service.info.*;
@@ -16,7 +16,7 @@ import java.util.Optional;
 public class PatientServiceImpl extends PersonService implements PatientService {
     private static final Logger LOGGER = LogManager.getLogger(PatientServiceImpl.class);
 
-    private final PatientRepository patientRepository;
+    private final Repository<PatientPerson> patientRepository;
     private final AnalysisService analysisService;
     private final HospitalizationService hospitalizationService;
     private final VaccinationService vaccinationService;
@@ -24,7 +24,7 @@ public class PatientServiceImpl extends PersonService implements PatientService 
     private final DeclarationService declarationService;
 
     public PatientServiceImpl() {
-        this.patientRepository = new PatientRepositoryMybatisImpl();
+        this.patientRepository = AbstractRepositoryFactory.createFactory("patient").createRepository("mybatis");
 //        this.patientRepository = new PatientRepositoryJdbcImpl();
         this.analysisService = new AnalysisServiceImpl();
         this.hospitalizationService = new HospitalizationServiceImpl();
@@ -39,6 +39,7 @@ public class PatientServiceImpl extends PersonService implements PatientService 
             validateForNull(patient);
             validateUniqueness(patient, getAll(), false);
             patientRepository.create(patient);
+            PatientListenerHolder.onNewPatient(patient);
         } catch (IncorrectPersonException e) {
             LOGGER.error(e);
         }
@@ -80,6 +81,7 @@ public class PatientServiceImpl extends PersonService implements PatientService 
 
     @Override
     public void deleteById(long id) {
+        PatientListenerHolder.onDeletePatient(getById(id).orElse(null));
         patientRepository.deleteById(id);
     }
 }

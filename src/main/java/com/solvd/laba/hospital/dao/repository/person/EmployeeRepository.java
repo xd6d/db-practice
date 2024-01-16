@@ -1,11 +1,7 @@
 package com.solvd.laba.hospital.dao.repository.person;
 
+import com.solvd.laba.hospital.dao.repository.Repository;
 import com.solvd.laba.hospital.model.person.EmployeePerson;
 
-import java.util.List;
-
-public interface EmployeeRepository {
-    void create(EmployeePerson employee);
-
-    List<EmployeePerson> findAll();
+public interface EmployeeRepository extends Repository<EmployeePerson> {
 }

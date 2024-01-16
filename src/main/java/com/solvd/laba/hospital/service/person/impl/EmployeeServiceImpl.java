@@ -1,7 +1,7 @@
 package com.solvd.laba.hospital.service.person.impl;
 
-import com.solvd.laba.hospital.dao.repository.person.EmployeeRepository;
-import com.solvd.laba.hospital.dao.repository.person.impl.EmployeeRepositoryMybatisImpl;
+import com.solvd.laba.hospital.dao.repository.AbstractRepositoryFactory;
+import com.solvd.laba.hospital.dao.repository.Repository;
 import com.solvd.laba.hospital.model.exceptions.IncorrectEmployeeException;
 import com.solvd.laba.hospital.model.exceptions.IncorrectPersonException;
 import com.solvd.laba.hospital.model.person.EmployeePerson;
@@ -14,10 +14,10 @@ import java.util.List;
 public class EmployeeServiceImpl extends PersonService implements EmployeeService {
     private static final Logger LOGGER = LogManager.getLogger(EmployeeServiceImpl.class);
 
-    private final EmployeeRepository employeeRepository;
+    private final Repository<EmployeePerson> employeeRepository;
 
     public EmployeeServiceImpl() {
-        this.employeeRepository = new EmployeeRepositoryMybatisImpl();
+        this.employeeRepository = AbstractRepositoryFactory.createFactory("employee").createRepository("mybatis");
 //        this.employeeRepository = new EmployeeRepositoryJdbcImpl();
     }
 
