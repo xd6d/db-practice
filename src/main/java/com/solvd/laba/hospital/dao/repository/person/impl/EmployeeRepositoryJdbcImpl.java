@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class EmployeeRepositoryJdbcImpl implements EmployeeRepository {
     private static final Logger LOGGER = LogManager.getLogger(EmployeeRepositoryJdbcImpl.class);
@@ -64,5 +65,20 @@ public class EmployeeRepositoryJdbcImpl implements EmployeeRepository {
             connectionPool.releaseConnection(connection);
         }
         return employees;
+    }
+
+    @Override
+    public Optional<EmployeePerson> findById(long id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public void update(EmployeePerson entity) {
+
+    }
+
+    @Override
+    public void deleteById(long id) {
+
     }
 }

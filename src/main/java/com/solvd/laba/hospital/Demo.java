@@ -23,6 +23,8 @@ import com.solvd.laba.hospital.service.info.*;
 import com.solvd.laba.hospital.service.info.impl.*;
 import com.solvd.laba.hospital.service.person.PatientService;
 import com.solvd.laba.hospital.service.person.impl.EmployeeServiceImpl;
+import com.solvd.laba.hospital.service.person.impl.PatientListener;
+import com.solvd.laba.hospital.service.person.impl.PatientListenerHolder;
 import com.solvd.laba.hospital.service.person.impl.PatientServiceImpl;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
@@ -176,11 +178,26 @@ public class Demo {
             conclusion1.setDiagnosis("diag");
             conclusion1.setObservation("obs");
             conclusion1.setMedicines(medicines);
-            conclusionService.create(conclusion1, 12);
+//            conclusionService.create(conclusion1, 12);
 
-            LOGGER.info(patientService.getById(3));
-            patientService.getAll().forEach(LOGGER::info);
-            employeeService.getAll().forEach(LOGGER::info);
+//            LOGGER.info(patientService.getById(3));
+//            patientService.getAll().forEach(LOGGER::info);
+//            employeeService.getAll().forEach(LOGGER::info);
+
+            //Builder
+            EmployeePerson e1 = EmployeePerson.builder()
+                    .id(1)
+                    .name("Steven")
+                    .surname("Carr")
+                    .email("s.carr@mail.com")
+                    .phoneNumber("+123123123")
+                    .position(Position.RECEPTIONIST)
+                    .build();
+            LOGGER.info(e1);
+
+            //Listener
+            PatientListenerHolder.subscribe(new PatientListener());
+            patientService.add(p);
         }
     }
 }
